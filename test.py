@@ -20,7 +20,7 @@ TARGET = st.text_input("Enter your name : ", "fizah")
 #MUT_RATE = st.number_input("Set mutation rate : ")
 MUT_RATE = st.slider("Set mutation rate : ", min_value=0.0, max_value=1.0, value=0.2)
 
-if st.button("Calculate now!!") : 
+if st.button("Calculate now!!")
 
   #initialization
   def initialize_pop(TARGET):
@@ -124,7 +124,7 @@ if st.button("Calculate now!!") :
           st.write('Target found')
           st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
           break
-        st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
+          st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
         generation+=1
 
   main()
