@@ -5,22 +5,22 @@ st.header("Genetic Algorithm Exercise", divider="blue")
 
 import random
 
-#GENES: Options from which our population would be created.
-GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-#POP_SIZE: Number of Chromosomes in our list.
-POP_SIZE = 500
-
 #TARGET: Our goal.
 #TARGET = 'hafizah'
 TARGET = st.text_input("Enter your name : ")
 
 #MUT_RATE: Rate at which our string will be changed.
 #MUT_RATE = 0.2
-#MUT_RATE = st.number_input("Set mutation rate : ")
-MUT_RATE = st.slider("Set mutation rate : ", min_value=0.0, max_value=1.0, value=0.2)
+#MUT_RATE = st.slider("Set mutation rate : ", min_value=0.0, max_value=1.0, value=0.2)
+MUT_RATE = st.number_input("Set mutation rate : ")
 
-if st.button("Calculate now!!"):
+#POP_SIZE: Number of Chromosomes in our list.
+POP_SIZE = 500
+
+#GENES: Options from which our population would be created.
+GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+if st.button("Calculate"):
 
   #initialization
   def initialize_pop(TARGET):
