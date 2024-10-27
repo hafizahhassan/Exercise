@@ -29,11 +29,12 @@ if st.button("Calculate now!!") :
   
     for i in range(POP_SIZE):
         temp = list()
+      
         for j in range(tar_len):
             temp.append(random.choice(GENES))
         population.append(temp)
   
-    return population
+        return population
   
   #fitness calculation
   #0 fitness means target found
