@@ -34,7 +34,7 @@ if st.button("Calculate now!!") :
             temp.append(random.choice(GENES))
         population.append(temp)
   
-        return population
+    return population
   
   #fitness calculation
   #0 fitness means target found
@@ -127,4 +127,4 @@ if st.button("Calculate now!!") :
         st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
         generation+=1
 
-result = main(POP_SIZE, MUT_RATE, TARGET, GENES)
+  main()
