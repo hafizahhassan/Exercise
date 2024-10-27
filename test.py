@@ -13,7 +13,7 @@ POP_SIZE = 500
 
 #TARGET: Our goal.
 #TARGET = 'hafizah'
-TARGET = st.text_input("Enter your name : ", "fizah")
+TARGET = st.text_input("Enter your name : ")
 
 #MUT_RATE: Rate at which our string will be changed.
 #MUT_RATE = 0.2
