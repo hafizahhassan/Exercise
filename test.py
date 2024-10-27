@@ -121,13 +121,12 @@ if st.button("Calculate now!!"):
         population = replace(new_gen, population)
 
         st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
-        break
     
         if (population[0][1] == 0):
           st.write('Target found', color="green")
-          #st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
-          #break
           st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
+          break
+          #st.write('String: ' + str(population[0][0]) + ' Generation: ' + str(generation) + ' Fitness: ' + str(population[0][1]))
         generation+=1
 
   main(POP_SIZE, MUT_RATE, TARGET, GENES)
