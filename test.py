@@ -1,11 +1,12 @@
 import streamlit as st
-st.set_page_config(
-    page_title="Genetic Algorithm"
-)
+st.set_page_config(page_title="Genetic Algorithm")
 
 st.header("Genetic Algorithm Exercise", divider="blue")
 
 import random
+
+#GENES: Options from which our population would be created.
+GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 #POP_SIZE: Number of Chromosomes in our list.
 POP_SIZE = 500
@@ -14,16 +15,12 @@ POP_SIZE = 500
 #TARGET = 'hafizah'
 TARGET = st.text_input("Enter your name : ", "fizah")
 
-#GENES: Options from which our population would be created.
-GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
 #MUT_RATE: Rate at which our string will be changed.
 #MUT_RATE = 0.2
 #MUT_RATE = st.number_input("Set mutation rate : ")
 MUT_RATE = st.slider("Set mutation rate : ", min_value=0.0, max_value=1.0, value=0.2)
 
 #initialization
-
 def initialize_pop(TARGET):
   population = list()
   tar_len = len(TARGET)
@@ -38,7 +35,6 @@ def initialize_pop(TARGET):
 
 #fitness calculation
 #0 fitness means target found
-
 def fitness_cal(TARGET, chromo_from_pop):
   difference = 0
   for tar_char, chromo_char in zip(TARGET, chromo_from_pop):
@@ -48,13 +44,11 @@ def fitness_cal(TARGET, chromo_from_pop):
 
 #selection
 #returns top 50% population sorted according to fitness
-
 def selection(population, TARGET):
   sorted_chromo_pop = sorted(population, key= lambda x: x[1])
   return sorted_chromo_pop[:int(0.5*POP_SIZE)]
 
 #crossover
-
 def crossover(selected_chromo, CHROMO_LEN, population):
   offspring_cross = []
   for i in range(int(POP_SIZE)):
@@ -70,7 +64,6 @@ def crossover(selected_chromo, CHROMO_LEN, population):
   return offspring_cross
 
 #mutation
-
 def mutate(offspring, MUT_RATE):
   mutated_offspring = []
 
@@ -82,7 +75,6 @@ def mutate(offspring, MUT_RATE):
   return mutated_offspring
 
 #replacement
-
 def replace(new_gen, population):
   for _ in range(len(population)):
       if population[_][1] > new_gen[_][1]:
@@ -91,7 +83,6 @@ def replace(new_gen, population):
   return population
 
 #main
-
 def main(POP_SIZE, MUT_RATE, TARGET, GENES):
     # 1) initialize population
     initial_population = initialize_pop(TARGET)
