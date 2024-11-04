@@ -10,9 +10,6 @@ import streamlit as st
 
 st.title("Cities Coordinate Input TSP")
 
-# Pastel palette
-colors = sns.color_palette("pastel", 10)
-
 # Create input form for cities
 with st.form("city_input_form"):
     city_coords = {}
@@ -29,6 +26,9 @@ with st.form("city_input_form"):
 # Code untuk button
 if submitButton:
     cities_names = list(city_coords.keys())
+
+    # Pastel palette
+    colors = sns.color_palette("pastel", 10)
 
     # Define default settings for the genetic algorithm
     n_population = 250
