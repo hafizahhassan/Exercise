@@ -15,10 +15,10 @@ with st.form("city_input_form"):
     city_coords = {}
     for i in range(1, 11):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
-        city_name = col1.text_input(f"City {i}", f"City {i}")
-        x_coord = col2.number_input(f"X Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"x{i}")
-        y_coord = col3.number_input(f"Y Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"y{i}")
-        city_coords[city_name] = (x_coord, y_coord)
+        cities_names = col1.text_input(f"City {i}", f"City {i}")
+        x = col2.number_input(f"X Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"x{i}")
+        y = col3.number_input(f"Y Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"y{i}")
+        city_coords[cities_names] = (x, y)
 
     # Button
     submitButton = st.form_submit_button("Submit")
@@ -30,7 +30,7 @@ mutation_per = 0.2
 n_generations = 200
 
 # Pastel palette
-colors = sns.color_palette("pastel", 10)
+colors = sns.color_palette("pastel", len(cities_names))
 
 # City Icons
 city_icons = {
