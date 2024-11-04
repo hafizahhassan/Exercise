@@ -46,12 +46,12 @@ if submitButton:
     cities_names = list(city_coords.keys())
 
     for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
-    color = colors[i]
-    icon = city_icons[city]
-    ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
-    ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
-    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
-                textcoords='offset points')
+        color = colors[i]
+        icon = city_icons[city]
+        ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
+        ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
+        ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
+                    textcoords='offset points')
 
     # Connect cities with opaque lines
     for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
