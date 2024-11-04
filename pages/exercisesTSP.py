@@ -39,12 +39,11 @@ with st.form("city_input_form"):
         city_coords[cities_names] = (x, y)
         
     # Button
-    #submitButton = st.form_submit_button("Submit")
+    submitButton = st.form_submit_button("Submit")
 
 # Code untuk button
-#if submitButton:
-    #cities_names = list(city_coords.keys())
-if st.form_submit_button("Submit"):
+if submitButton:
+    cities_names = list(city_coords.keys())
 
     for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
         color = colors[i]
