@@ -25,6 +25,32 @@ def get_city_data():
             y_coords.append(city_y)
     
         return cities_names, x_coords, y_coords
+        
+        # Display a submit button
+        if st.button("Submit and Run TSP"):
+            # Run Genetic Algorithm
+            best_population = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
+        
+            # Evaluate and Display Best Route
+            total_distances = [total_dist_individual(ind) for ind in best_population]
+            min_distance = min(total_distances)
+            st.write("Minimum Distance:", min_distance)
+        
+            best_route = best_population[np.argmin(total_distances)]
+            st.write("Shortest Path:", best_route)
+        
+            # Plot Best Route
+            x_best = [city_coords[city][0] for city in best_route] + [city_coords[best_route[0]][0]]
+            y_best = [city_coords[city][1] for city in best_route] + [city_coords[best_route[0]][1]]
+        
+            fig, ax = plt.subplots()
+            ax.plot(x_best, y_best, '--go', label='Best Route', linewidth=2.5)
+            plt.legend()
+            for i, txt in enumerate(best_route):
+                ax.annotate(f"{i + 1} - {txt}", (x_best[i], y_best[i]), fontsize=10)
+        
+            fig.set_size_inches(16, 12)
+            st.pyplot(fig)
 
 # Collect user inputs
 cities_names, x, y = get_city_data()
@@ -110,30 +136,3 @@ def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_pe
         population = [mixed_population[i] for i in best_indices]
 
     return population
-
-# Display a submit button
-if st.button("Submit and Run TSP"):
-    # Run Genetic Algorithm
-    best_population = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
-
-    # Evaluate and Display Best Route
-    total_distances = [total_dist_individual(ind) for ind in best_population]
-    min_distance = min(total_distances)
-    st.write("Minimum Distance:", min_distance)
-
-    best_route = best_population[np.argmin(total_distances)]
-    st.write("Shortest Path:", best_route)
-
-    # Plot Best Route
-    x_best = [city_coords[city][0] for city in best_route] + [city_coords[best_route[0]][0]]
-    y_best = [city_coords[city][1] for city in best_route] + [city_coords[best_route[0]][1]]
-
-    fig, ax = plt.subplots()
-    ax.plot(x_best, y_best, '--go', label='Best Route', linewidth=2.5)
-    plt.legend()
-    for i, txt in enumerate(best_route):
-        ax.annotate(f"{i + 1} - {txt}", (x_best[i], y_best[i]), fontsize=10)
-
-    fig.set_size_inches(16, 12)
-    st.pyplot(fig)
-
