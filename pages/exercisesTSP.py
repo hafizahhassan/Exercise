@@ -8,6 +8,21 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
+st.title("Cities Coordinate Input TSP")
+
+# Create input form for cities
+with st.form("city_input_form"):
+    city_coords = {}
+    for i in range(1, 11):
+        col1, col2, col3 = st.columns(3)    #Buat 3 column
+        city_name = col1.text_input(f"City {i}", f"City {i}")
+        x_coord = col2.number_input(f"X Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"x{i}")
+        y_coord = col3.number_input(f"Y Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"y{i}")
+        city_coords[city_name] = (x_coord, y_coord)
+
+    # Button
+    submitButton = st.form_submit_button("Submit")
+
 # Define default settings for the genetic algorithm
 n_population = 250
 crossover_per = 0.8
@@ -31,20 +46,26 @@ city_icons = {
     10: "♝"
 }
 
-st.title("Cities Coordinate Input TSP")
+fig, ax = plt.subplots()
 
-# Create input form for cities
-with st.form("city_input_form"):
-    city_coords = {}
-    for i in range(1, 11):
-        col1, col2, col3 = st.columns(3)    #Buat 3 column
-        city_name = col1.text_input(f"City {i}", f"City {i}")
-        x_coord = col2.number_input(f"X Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"x{i}")
-        y_coord = col3.number_input(f"Y Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"y{i}")
-        city_coords[city_name] = (x_coord, y_coord)
+ax.grid(False)  # Grid
 
-    # Button
-    submitButton = st.form_submit_button("Submit")
+for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
+    color = colors[i]
+    icon = city_icons[city]
+    ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
+    ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
+    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
+                textcoords='offset points')
+
+    # Connect cities with opaque lines
+    for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
+        if i != j:
+            ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
+
+fig.set_size_inches(16, 12)
+#plt.show()
+st.pyplot(fig)
 
 # Code untuk button
 if submitButton:
