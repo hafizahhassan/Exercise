@@ -38,7 +38,7 @@ with st.form("City_InputTSP"):
     city_coords = {}
     for i in range(1, 11):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
-        city_name = col1.text_input(f"City {i} Name", f"City {i}")
+        city_name = col1.text_input(f"City {i}", f"City {i}")
         x_coord = col2.number_input(f"X Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"x{i}")
         y_coord = col3.number_input(f"Y Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"y{i}")
         city_coords[city_name] = (x_coord, y_coord)
