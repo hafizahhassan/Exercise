@@ -28,23 +28,6 @@ fig, ax = plt.subplots()
 
 ax.grid(False)  # Grid
 
-for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
-    color = colors[i]
-    icon = city_icons[i + 1]
-    ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
-    ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
-    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
-                textcoords='offset points')
-
-    # Connect cities with opaque lines
-    for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
-        if i != j:
-            ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
-
-fig.set_size_inches(16, 12)
-#plt.show()
-st.pyplot(fig)
-
 # Create input form for cities
 with st.form("city_input_form"):
     city_coords = {}
@@ -61,6 +44,23 @@ with st.form("city_input_form"):
 # Code untuk button
 if submitButton:
     cities_names = list(city_coords.keys())
+
+    for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
+    color = colors[i]
+    icon = city_icons[i + 1]
+    ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
+    ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
+    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
+                textcoords='offset points')
+
+    # Connect cities with opaque lines
+    for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
+        if i != j:
+            ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
+
+    fig.set_size_inches(16, 12)
+    #plt.show()
+    st.pyplot(fig)
     
     #population
     def initial_population(cities_list, n_population = 250):
