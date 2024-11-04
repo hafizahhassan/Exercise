@@ -17,7 +17,7 @@ mutation_per = 0.2
 n_generations = 200
 
 # Pastel palette
-colors = sns.color_palette("pastel", len(cities_names))
+colors = sns.color_palette("pastel", 10)
 
 # City Icons
 city_icons = {
