@@ -14,16 +14,17 @@ def get_city_data():
     x_coords = []
     y_coords = []
 
-    st.write("Enter details for 10 cities:")
-    for i in range(10):
-        city_name = st.text_input(f"Enter name of city {i + 1}:", f"City{i + 1}")
-        city_x = st.slider(f"Enter x-coordinate for {city_name} (1-10):", 1, 10, 5)
-        city_y = st.slider(f"Enter y-coordinate for {city_name} (1-10):", 1, 10, 5)
-        cities_names.append(city_name)
-        x_coords.append(city_x)
-        y_coords.append(city_y)
-
-    return cities_names, x_coords, y_coords
+    with st.form("my_form")
+        st.write("Enter details for 10 cities:")
+        for i in range(10):
+            city_name = st.text_input(f"Enter name of city {i + 1}:", f"City{i + 1}")
+            city_x = st.slider(f"Enter x-coordinate for {city_name} (1-10):", 1, 10, 5)
+            city_y = st.slider(f"Enter y-coordinate for {city_name} (1-10):", 1, 10, 5)
+            cities_names.append(city_name)
+            x_coords.append(city_x)
+            y_coords.append(city_y)
+    
+        return cities_names, x_coords, y_coords
 
 # Collect user inputs
 cities_names, x, y = get_city_data()
