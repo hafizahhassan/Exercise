@@ -83,33 +83,33 @@ if submit_button:
         return offspring
 
     def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per):
-    population = initial_population(cities_names, n_population)
-    for _ in range(n_generations):
-        fitness_probs = fitness_prob(population)
-        
-        # Select parents
-        num_parents = int(crossover_per * n_population)
-        if num_parents % 2 != 0:
-            num_parents -= 1  # Ensure an even number of parents
-        parents = [roulette_wheel(population, fitness_probs) for _ in range(num_parents)]
-        
-        offspring = []
-        for i in range(0, len(parents), 2):
-            parent_1, parent_2 = parents[i], parents[i + 1]
-            offspring_1, offspring_2 = crossover(parent_1, parent_2)
+        population = initial_population(cities_names, n_population)
+        for _ in range(n_generations):
+            fitness_probs = fitness_prob(population)
             
-            # Apply mutation
-            if random.random() < mutation_per:
-                offspring_1 = mutation(offspring_1)
-            if random.random() < mutation_per:
-                offspring_2 = mutation(offspring_2)
+            # Select parents
+            num_parents = int(crossover_per * n_population)
+            if num_parents % 2 != 0:
+                num_parents -= 1  # Ensure an even number of parents
+            parents = [roulette_wheel(population, fitness_probs) for _ in range(num_parents)]
             
-            offspring.extend([offspring_1, offspring_2])
+            offspring = []
+            for i in range(0, len(parents), 2):
+                parent_1, parent_2 = parents[i], parents[i + 1]
+                offspring_1, offspring_2 = crossover(parent_1, parent_2)
+                
+                # Apply mutation
+                if random.random() < mutation_per:
+                    offspring_1 = mutation(offspring_1)
+                if random.random() < mutation_per:
+                    offspring_2 = mutation(offspring_2)
+                
+                offspring.extend([offspring_1, offspring_2])
+            
+            # Update the population and keep the best individuals
+            population = parents + offspring
+            population = sorted(population, key=total_dist_individual)[:n_population]
         
-        # Update the population and keep the best individuals
-        population = parents + offspring
-        population = sorted(population, key=total_dist_individual)[:n_population]
-    
     # Return the best route found
     return min(population, key=total_dist_individual)
 
