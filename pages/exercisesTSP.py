@@ -1,9 +1,24 @@
 import numpy as np
 import random
 
-# Sample distance matrix (could be replaced with real user input)
+# Function to input city names and number of cities
+def get_city_names():
+    num_cities = int(input("Enter the number of cities: "))
+    cities = []
+    for i in range(num_cities):
+        city = input(f"Enter name of city {i + 1}: ")
+        cities.append(city)
+    return cities
+
+# Function to create a random distance matrix for the given cities
 def create_distance_matrix(num_cities):
-    return np.random.randint(10, 100, size=(num_cities, num_cities))
+    # Create a symmetric distance matrix with zeroes on the diagonal
+    matrix = np.random.randint(10, 100, size=(num_cities, num_cities))
+    for i in range(num_cities):
+        matrix[i][i] = 0
+        for j in range(i + 1, num_cities):
+            matrix[j][i] = matrix[i][j]  # Make the matrix symmetric
+    return matrix
 
 # Fitness function to calculate total route distance
 def calculate_route_distance(route, distance_matrix):
@@ -40,7 +55,8 @@ def mutate(route, mutation_rate=0.01):
     return route
 
 # Main GA function
-def genetic_algorithm(num_cities, pop_size=100, num_generations=500, mutation_rate=0.01, num_parents=20):
+def genetic_algorithm(cities, pop_size=100, num_generations=500, mutation_rate=0.01, num_parents=20):
+    num_cities = len(cities)
     distance_matrix = create_distance_matrix(num_cities)
     population = generate_initial_population(pop_size, num_cities)
     
@@ -66,10 +82,12 @@ def genetic_algorithm(num_cities, pop_size=100, num_generations=500, mutation_ra
     best_route = population[np.argmin(fitness_scores)]
     best_distance = min(fitness_scores)
     
-    return best_route, best_distance
+    # Convert best route from indices to city names
+    best_route_cities = [cities[i] for i in best_route]
+    return best_route_cities, best_distance
 
 # Example Usage
-num_cities = 10
-best_route, best_distance = genetic_algorithm(num_cities)
-print("Best Route:", best_route)
+cities = get_city_names()
+best_route, best_distance = genetic_algorithm(cities)
+print("Best Route:", " -> ".join(best_route))
 print("Best Distance:", best_distance)
