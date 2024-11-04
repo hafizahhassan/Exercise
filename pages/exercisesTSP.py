@@ -63,25 +63,17 @@ if submitButton:
         Generated lists of cities
         """
     
-        population_perms = []
         possible_perms = list(permutations(cities_list))
-        random_ids = random.sample(range(0,len(possible_perms)),n_population)
-    
-        for i in random_ids:
-            population_perms.append(list(possible_perms[i]))
-    
+        population_perms = random.sample(possible_perms, n_population)
         return population_perms
     
     #distance between two cities
-    
     def dist_two_cities(city_1, city_2):
-    
         city_1_coords = city_coords[city_1]
         city_2_coords = city_coords[city_2]
         return np.sqrt(np.sum((np.array(city_1_coords) - np.array(city_2_coords))**2))
     
     def total_dist_individual(individual):
-    
         total_dist = 0
         for i in range(0, len(individual)):
             if(i == len(individual) - 1):
@@ -91,7 +83,6 @@ if submitButton:
         return total_dist
     
     #fitness probablity function
-    
     def fitness_prob(population):
         """
         Calculating the fitness probability
@@ -110,8 +101,7 @@ if submitButton:
         population_fitness_probs = population_fitness / population_fitness_sum
         return population_fitness_probs
     
-    #roulette wheel
-    
+    #roulette wheel    
     def roulette_wheel(population, fitness_probs):
         """
         Implement selection strategy based on roulette wheel proportionate selection.
@@ -127,7 +117,6 @@ if submitButton:
         return population[selected_individual_index]
     
     #crossover
-    
     def crossover(parent_1, parent_2):
         """
         Implement mating strategy using simple crossover between 2 parents
@@ -145,16 +134,13 @@ if submitButton:
     
         offspring_1 = parent_1[0:cut]
         offspring_1 += [city for city in parent_2 if city not in offspring_1]
-    
-    
+        
         offspring_2 = parent_2[0:cut]
         offspring_2 += [city for city in parent_1 if city not in offspring_2]
-    
-    
+
         return offspring_1, offspring_2
     
     #mutation
-    
     def mutation(offspring):
         """
         Implement mutation strategy in a single offspring
