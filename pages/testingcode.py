@@ -110,8 +110,8 @@ if submit_button:
             population = parents + offspring
             population = sorted(population, key=total_dist_individual)[:n_population]
         
-    # Return the best route found
-    return min(population, key=total_dist_individual)
+        # Return the best route found
+        return min(population, key=total_dist_individual)
 
     # Run GA and get the best route
     best_route = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
