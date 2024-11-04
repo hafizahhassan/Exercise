@@ -18,7 +18,7 @@ with st.form("city_input_form"):
         cities_names = col1.text_input(f"City {i}", f"City {i}")
         x = col2.number_input(f"X Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"x{i}")
         y = col3.number_input(f"Y Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"y{i}")
-        city_coords = dict(zip(cities_names, zip(x, y)))
+        city_coords[cities_names] = (x, y)
         
     # Button
     submitButton = st.form_submit_button("Submit")
