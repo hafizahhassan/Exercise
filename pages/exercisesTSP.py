@@ -31,10 +31,10 @@ city_icons = {
     10: "♝"
 }
 
-st.title("Traveling Salesperson Problem (TSP) with Genetic Algorithm")
+st.title("Cities Coordinate Input TSP")
 
 # Create input form for cities
-with st.form("City_InputTSP"):
+with st.form("city_input_form"):
     city_coords = {}
     for i in range(1, 11):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
