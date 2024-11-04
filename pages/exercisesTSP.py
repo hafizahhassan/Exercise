@@ -14,7 +14,7 @@ def get_city_data():
     x_coords = []
     y_coords = []
 
-    with st.form("my_form")
+    with st.form("my_form"):
         st.write("Enter details for 10 cities:")
         for i in range(10):
             city_name = st.text_input(f"Enter name of city {i + 1}:", f"City{i + 1}")
