@@ -1,9 +1,12 @@
-import streamlit as st
 import matplotlib.pyplot as plt
-import numpy as np
+from itertools import permutations, combinations
+from random import shuffle
 import random
-from itertools import permutations
+import numpy as np
+import statistics
+import pandas as pd
 import seaborn as sns
+import streamlit as st
 
 # Define default settings for the genetic algorithm
 n_population = 250
@@ -11,34 +14,43 @@ crossover_per = 0.8
 mutation_per = 0.2
 n_generations = 200
 
-# Pastel color palette
-colors = sns.color_palette("pastel", 10)
+# Pastel palette
+colors = sns.color_palette("pastel", len(cities_names))
 
 # City Icons
 city_icons = {
-    1: "♕", 2: "♖", 3: "♗", 4: "♘", 5: "♙",
-    6: "♔", 7: "♚", 8: "♛", 9: "♜", 10: "♝"
+    1: "♕", 
+    2: "♖", 
+    3: "♗", 
+    4: "♘", 
+    5: "♙",
+    6: "♔", 
+    7: "♚",
+    8: "♛", 
+    9: "♜", 
+    10: "♝"
 }
 
 st.title("Traveling Salesperson Problem (TSP) with Genetic Algorithm")
 
 # Create input form for cities
-with st.form("city_input_form"):
+with st.form("City_InputTSP"):
     city_coords = {}
-    for i in range(1, 11):
-        col1, col2, col3 = st.columns(3)
-        city_name = col1.text_input(f"City {i} Name", f"City_{i}")
+    for i in range(1, 10):
+        col1, col2, col3 = st.columns(3)    #Buat 3 column
+        city_name = col1.text_input(f"City {i} Name", f"City {i}")
         x_coord = col2.number_input(f"X Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"x{i}")
         y_coord = col3.number_input(f"Y Coordinate for {city_name}", min_value=1, max_value=10, step=1, key=f"y{i}")
         city_coords[city_name] = (x_coord, y_coord)
-    
-    submit_button = st.form_submit_button(label="Submit")
 
-# If the form is submitted, run the genetic algorithm
-if submit_button:
+    # Button
+    submitButton = st.form_submit_button("Submit")
+
+# Code untuk button
+if submitButton:
     cities_names = list(city_coords.keys())
     
-    # Define distance calculation functions
+    # Distance between two cities
     def dist_two_cities(city_1, city_2):
         city_1_coords = city_coords[city_1]
         city_2_coords = city_coords[city_2]
@@ -52,7 +64,8 @@ if submit_button:
             else:
                 total_dist += dist_two_cities(individual[i], individual[i + 1])
         return total_dist
-
+        
+    # Fitness probablity function
     def fitness_prob(population):
         total_dist_all_individuals = [total_dist_individual(ind) for ind in population]
         max_population_cost = max(total_dist_all_individuals)
@@ -61,6 +74,7 @@ if submit_button:
         population_fitness_probs = population_fitness / population_fitness_sum
         return population_fitness_probs
 
+    # Roulette wheel
     def initial_population(cities_list, n_population=250):
         possible_perms = list(permutations(cities_list))
         population_perms = random.sample(possible_perms, n_population)
@@ -71,12 +85,14 @@ if submit_button:
         selected_index = np.searchsorted(population_fitness_probs_cumsum, np.random.rand())
         return population[selected_index]
 
+    # Crossover
     def crossover(parent_1, parent_2):
         cut = random.randint(1, len(cities_names) - 1)
         offspring_1 = parent_1[:cut] + [city for city in parent_2 if city not in parent_1[:cut]]
         offspring_2 = parent_2[:cut] + [city for city in parent_1 if city not in parent_2[:cut]]
         return offspring_1, offspring_2
 
+    # Mutation
     def mutation(offspring):
         index_1, index_2 = random.sample(range(len(cities_names)), 2)
         offspring[index_1], offspring[index_2] = offspring[index_2], offspring[index_1]
