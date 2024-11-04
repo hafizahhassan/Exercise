@@ -1,10 +1,12 @@
 import matplotlib.pyplot as plt
+from itertools import permutations, combinations
+from random import shuffle
 import random
 import numpy as np
+import statistics
 import pandas as pd
 import seaborn as sns
 import streamlit as st
-from itertools import permutations
 
 # Function to take city inputs from user
 def get_city_data():
@@ -35,14 +37,6 @@ n_generations = 200
 
 # Pastel Palette for cities
 colors = sns.color_palette("pastel", len(cities_names))
-
-# Initial Plot for Cities
-fig, ax = plt.subplots()
-for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
-    color = colors[i]
-    ax.scatter(city_x, city_y, c=[color], s=200, zorder=2)
-    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -10),
-                textcoords='offset points')
 
 # City Distance Functions
 def dist_two_cities(city_1, city_2):
@@ -116,26 +110,29 @@ def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_pe
 
     return population
 
-# Run Genetic Algorithm
-best_population = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
+# Display a submit button
+if st.button("Submit and Run TSP"):
+    # Run Genetic Algorithm
+    best_population = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
 
-# Evaluate and Display Best Route
-total_distances = [total_dist_individual(ind) for ind in best_population]
-min_distance = min(total_distances)
-st.write("Minimum Distance:", min_distance)
+    # Evaluate and Display Best Route
+    total_distances = [total_dist_individual(ind) for ind in best_population]
+    min_distance = min(total_distances)
+    st.write("Minimum Distance:", min_distance)
 
-best_route = best_population[np.argmin(total_distances)]
-st.write("Shortest Path:", best_route)
+    best_route = best_population[np.argmin(total_distances)]
+    st.write("Shortest Path:", best_route)
 
-# Plot Best Route
-x_best = [city_coords[city][0] for city in best_route] + [city_coords[best_route[0]][0]]
-y_best = [city_coords[city][1] for city in best_route] + [city_coords[best_route[0]][1]]
+    # Plot Best Route
+    x_best = [city_coords[city][0] for city in best_route] + [city_coords[best_route[0]][0]]
+    y_best = [city_coords[city][1] for city in best_route] + [city_coords[best_route[0]][1]]
 
-fig, ax = plt.subplots()
-ax.plot(x_best, y_best, '--go', label='Best Route', linewidth=2.5)
-plt.legend()
-for i, txt in enumerate(best_route):
-    ax.annotate(f"{i + 1} - {txt}", (x_best[i], y_best[i]), fontsize=10)
+    fig, ax = plt.subplots()
+    ax.plot(x_best, y_best, '--go', label='Best Route', linewidth=2.5)
+    plt.legend()
+    for i, txt in enumerate(best_route):
+        ax.annotate(f"{i + 1} - {txt}", (x_best[i], y_best[i]), fontsize=10)
 
-fig.set_size_inches(16, 12)
-st.pyplot(fig)
+    fig.set_size_inches(16, 12)
+    st.pyplot(fig)
+
