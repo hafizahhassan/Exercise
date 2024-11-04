@@ -34,16 +34,7 @@ colors = sns.color_palette("pastel", len(cities_names))
 
 # City Icons
 city_icons = {
-    1: "♕", 
-    2: "♖", 
-    3: "♗", 
-    4: "♘", 
-    5: "♙",
-    6: "♔", 
-    7: "♚",
-    8: "♛", 
-    9: "♜", 
-    10: "♝"
+    1: "♕", 2: "♖", 3: "♗", 4: "♘", 5: "♙",6: "♔", 7: "♚",8: "♛", 9: "♜", 10: "♝"
 }
 
 fig, ax = plt.subplots()
