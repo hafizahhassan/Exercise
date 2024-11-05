@@ -218,48 +218,46 @@ def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_pe
     for i in best_fitness_indices:
         best_mixed_offspring.append(mixed_offspring[i])
 
-
-
-    for i in range(0, n_generations):
-        # if (i%10 == 0):
-            # print("Generation: ", i)
-
-        fitness_probs = fitness_prob(best_mixed_offspring)
-        parents_list = []
-        for i in range(0, int(crossover_per * n_population)):
-            parents_list.append(roulette_wheel(best_mixed_offspring, fitness_probs))
-
-        offspring_list = []
-        for i in range(0,len(parents_list), 2):
-            offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i+1])
-
-            mutate_threashold = random.random()
-            if(mutate_threashold > (1-mutation_per)):
-                offspring_1 = mutation(offspring_1)
-
-            mutate_threashold = random.random()
-            if(mutate_threashold > (1-mutation_per)):
-                offspring_2 = mutation(offspring_2)
-
-            offspring_list.append(offspring_1)
-            offspring_list.append(offspring_2)
-
-
-        mixed_offspring = parents_list + offspring_list
-        fitness_probs = fitness_prob(mixed_offspring)
-        sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
-        best_fitness_indices = sorted_fitness_indices[0:int(0.8*n_population)]
-
-        best_mixed_offspring = []
-        for i in best_fitness_indices:
-            best_mixed_offspring.append(mixed_offspring[i])
-
-        old_population_indices = [random.randint(0, (n_population - 1)) for j in range(int(0.2*n_population))]
-        for i in old_population_indices:
-#             print(i)
-            best_mixed_offspring.append(population[i])
-
-        random.shuffle(best_mixed_offspring)
+        for i in range(0, n_generations):
+            # if (i%10 == 0):
+                # print("Generation: ", i)
+    
+            fitness_probs = fitness_prob(best_mixed_offspring)
+            parents_list = []
+            for i in range(0, int(crossover_per * n_population)):
+                parents_list.append(roulette_wheel(best_mixed_offspring, fitness_probs))
+    
+            offspring_list = []
+            for i in range(0,len(parents_list), 2):
+                offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i+1])
+    
+                mutate_threashold = random.random()
+                if(mutate_threashold > (1-mutation_per)):
+                    offspring_1 = mutation(offspring_1)
+    
+                mutate_threashold = random.random()
+                if(mutate_threashold > (1-mutation_per)):
+                    offspring_2 = mutation(offspring_2)
+    
+                offspring_list.append(offspring_1)
+                offspring_list.append(offspring_2)
+    
+    
+            mixed_offspring = parents_list + offspring_list
+            fitness_probs = fitness_prob(mixed_offspring)
+            sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
+            best_fitness_indices = sorted_fitness_indices[0:int(0.8*n_population)]
+    
+            best_mixed_offspring = []
+            for i in best_fitness_indices:
+                best_mixed_offspring.append(mixed_offspring[i])
+    
+            old_population_indices = [random.randint(0, (n_population - 1)) for j in range(int(0.2*n_population))]
+            for i in old_population_indices:
+    #             print(i)
+                best_mixed_offspring.append(population[i])
+    
+            random.shuffle(best_mixed_offspring)
 
     return best_mixed_offspring
 
