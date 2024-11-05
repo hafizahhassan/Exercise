@@ -9,6 +9,12 @@ import seaborn as sns
 city_icons = {f"City {i+1}": f"♕" for i in range(10)}
 colors = sns.color_palette("pastel", 10)
 
+# Define default settings for the genetic algorithm
+n_population = 250
+crossover_per = 0.8
+mutation_per = 0.2
+n_generations = 200
+
 # Function to calculate the Euclidean distance between two cities
 def dist_two_cities(city_1, city_2, city_coords):
     city_1_coords = city_coords[city_1]
@@ -115,11 +121,6 @@ for i in range(10):
 #n_generations = st.slider("Number of Generations", 50, 500, 200)
 #crossover_rate = st.slider("Crossover Rate", 0.1, 1.0, 0.8)
 #mutation_rate = st.slider("Mutation Rate", 0.01, 1.0, 0.2)
-# Define default settings for the genetic algorithm
-n_population = 250
-crossover_per = 0.8
-mutation_per = 0.2
-n_generations = 200
 
 # Run GA when user clicks the button
 if st.button("Run GA"):
