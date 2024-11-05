@@ -1,9 +1,12 @@
-import streamlit as st
 import matplotlib.pyplot as plt
-from itertools import permutations
+from itertools import permutations, combinations
+from random import shuffle
 import random
 import numpy as np
+import statistics
+import pandas as pd
 import seaborn as sns
+import streamlit as st
 
 # Streamlit input fields for cities
 st.title("Traveling Salesperson Problem (TSP) with Genetic Algorithm")
@@ -12,7 +15,7 @@ st.write("Enter the coordinates for 10 cities:")
 # Create input fields for cities
 user_cities = []
 for i in range(10):
-    city_name = st.text_input(f"City {i + 1} Name", value=f"City{i + 1}")
+    city_name = st.text_input(f"City {i + 1}", value=f"City{i + 1}")
     x_coord = st.number_input(f"City {i + 1} X Coordinate", value=float(i * 2))
     y_coord = st.number_input(f"City {i + 1} Y Coordinate", value=float(i))
     user_cities.append((city_name, x_coord, y_coord))
