@@ -23,8 +23,8 @@ def get_city_input():
         city_name = st.text_input(f"Enter name for city {i + 1}:", f"City_{i + 1}")
         city_names.append(city_name)
 
-        x_coord = st.number_input(f"Enter x-coordinate for {city_name}:", min_value=-100, max_value=100, value=random.randint(-50, 50))
-        y_coord = st.number_input(f"Enter y-coordinate for {city_name}:", min_value=-100, max_value=100, value=random.randint(-50, 50))
+        x_coord = st.number_input(f"Enter x-coordinate for {city_name}:", min_value=1, max_value=10, value=random.randint(-50, 50))
+        y_coord = st.number_input(f"Enter y-coordinate for {city_name}:", min_value=1, max_value=10, value=random.randint(-50, 50))
         
         city_coords[city_name] = (x_coord, y_coord)
     
