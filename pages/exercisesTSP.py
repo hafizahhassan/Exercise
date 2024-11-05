@@ -53,12 +53,9 @@ if submitButton:
         ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30), textcoords='offset points')
 
         # Connect cities with opaque lines
-        x = [coord[0] for coord in city_coords.values()]
-        y = [coord[1] for coord in city_coords.values()]
-        
-        for i in range(len(x)):
-            for j in range(i + 1, len(x)):
-                ax.plot([x[i], x[j]], [y[i], y[j]], 'k-', alpha=0.09, linewidth=1)
+        for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
+            if i != j:
+                ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
 
     fig.set_size_inches(16, 12)
     st.pyplot(fig)
