@@ -164,7 +164,7 @@ def mutation(offspring):
 
 def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per, city_coords):
     population = initial_population(cities_names, n_population)
-    fitness_probs = fitness_prob(population)
+    fitness_probs = fitness_prob(population, city_coords)
 
     parents_list = []
     for i in range(0, int(crossover_per * n_population)):
@@ -191,7 +191,7 @@ def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per,
 
     mixed_offspring = parents_list + offspring_list
 
-    fitness_probs = fitness_prob(mixed_offspring)
+    fitness_probs = fitness_prob(mixed_offspring, city_coords)
     sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
     best_fitness_indices = sorted_fitness_indices[0:n_population]
     best_mixed_offspring = []
@@ -202,7 +202,7 @@ def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per,
         # if (i%10 == 0):
             # print("Generation: ", i)
 
-        fitness_probs = fitness_prob(best_mixed_offspring)
+        fitness_probs = fitness_prob(best_mixed_offspring, city_coords)
         parents_list = []
         for i in range(0, int(crossover_per * n_population)):
             parents_list.append(roulette_wheel(best_mixed_offspring, fitness_probs))
@@ -223,7 +223,7 @@ def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per,
             offspring_list.append(offspring_2)
 
         mixed_offspring = parents_list + offspring_list
-        fitness_probs = fitness_prob(mixed_offspring)
+        fitness_probs = fitness_prob(mixed_offspring, city_coords)
         sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
         best_fitness_indices = sorted_fitness_indices[0:int(0.8*n_population)]
 
