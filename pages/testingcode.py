@@ -9,9 +9,9 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-cities_names = text_input(f"City {i}", f"City {i}")
-x = number_input(f"X Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"x{i}")
-y = number_input(f"Y Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"y{i}")
+cities_names = st.text_input(f"City {i}", f"City {i}")
+x = st.number_input(f"X Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"x{i}")
+y = st.number_input(f"Y Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"y{i}")
 city_coords = dict(zip(cities_names, zip(x, y)))
 n_population = 250
 crossover_per = 0.8
