@@ -173,21 +173,18 @@ def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per,
     offspring_list = []
     for i in range(0,len(parents_list), 2):
         offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i+1])
-
-    #     print(offspring_1)
-    #     print(offspring_2)
-    #     print()
-
+        #print(offspring_1)
+        #print(offspring_2)
+        #print()
         mutate_threashold = random.random()
         if(mutate_threashold > (1-mutation_per)):
             offspring_1 = mutation(offspring_1)
-    #         print("Offspring 1 mutated", offspring_1)
+            #print("Offspring 1 mutated", offspring_1)
 
         mutate_threashold = random.random()
         if(mutate_threashold > (1-mutation_per)):
             offspring_2 = mutation(offspring_2)
-    #         print("Offspring 2 mutated", offspring_2)
-
+            #print("Offspring 2 mutated", offspring_2)
 
         offspring_list.append(offspring_1)
         offspring_list.append(offspring_2)
@@ -200,8 +197,6 @@ def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per,
     best_mixed_offspring = []
     for i in best_fitness_indices:
         best_mixed_offspring.append(mixed_offspring[i])
-
-
 
     for i in range(0, n_generations):
         # if (i%10 == 0):
@@ -227,7 +222,6 @@ def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per,
             offspring_list.append(offspring_1)
             offspring_list.append(offspring_2)
 
-
         mixed_offspring = parents_list + offspring_list
         fitness_probs = fitness_prob(mixed_offspring)
         sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
@@ -246,7 +240,7 @@ def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per,
 
     return best_mixed_offspring
 
-best_mixed_offspring = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
+best_mixed_offspring = run_ga(city_names, n_population, n_generations, crossover_per, mutation_per)
 
 total_dist_all_individuals = []
 for i in range(0, n_population):
