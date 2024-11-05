@@ -37,7 +37,7 @@ if submitButton:
     n_generations = 200
 
     # City Icons
-    city_icons = {
+    city_icons[i] = {
         1: "♕", 2: "♖", 3: "♗", 4: "♘", 5: "♙",6: "♔", 7: "♚",8: "♛", 9: "♜", 10: "♝"
     }
 
