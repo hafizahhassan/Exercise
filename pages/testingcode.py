@@ -26,6 +26,8 @@ with st.form("city_input_form"):
 st.write("Outside the form")
 
 if submitButton:
+    cityName = list(city_coords.keys())
+    
     # Display list input
     #st.write(city_coords)
     
