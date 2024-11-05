@@ -55,7 +55,10 @@ if submitButton:
     
     # Plotting city
     fig, ax = plt.subplots()
-    ax.grid(False)  # Grid
+    ax.grid(False) 
+    
+    fig.set_size_inches(16, 12)
+    st.pyplot(fig)
         
 
 
