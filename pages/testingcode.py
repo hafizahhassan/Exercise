@@ -9,9 +9,9 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-x = [0,3,6,7,15,10,16,5,8,1.5]
-y = [1,2,1,4.5,-1,2.5,11,6,9,12]
-cities_names = ["Gliwice", "Cairo", "Rome", "Krakow", "Paris", "Alexandria", "Berlin", "Tokyo", "Rio", "Budapest"]
+cities_names = text_input(f"City {i}", f"City {i}")
+x = number_input(f"X Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"x{i}")
+y = number_input(f"Y Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"y{i}")
 city_coords = dict(zip(cities_names, zip(x, y)))
 n_population = 250
 crossover_per = 0.8
@@ -23,16 +23,16 @@ colors = sns.color_palette("pastel", len(cities_names))
 
 # City Icons
 city_icons = {
-    "Gliwice": "♕",
-    "Cairo": "♖",
-    "Rome": "♗",
-    "Krakow": "♘",
-    "Paris": "♙",
-    "Alexandria": "♔",
-    "Berlin": "♚",
-    "Tokyo": "♛",
-    "Rio": "♜",
-    "Budapest": "♝"
+    {cities_names}: "♕",
+    {cities_names}: "♖",
+    {cities_names}: "♗",
+    {cities_names}: "♘",
+    {cities_names}: "♙",
+    {cities_names}: "♔",
+    {cities_names}: "♚",
+    {cities_names}: "♛",
+    {cities_names}: "♜",
+    {cities_names}: "♝"
 }
 
 fig, ax = plt.subplots()
