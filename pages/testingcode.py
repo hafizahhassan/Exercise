@@ -1,147 +1,195 @@
-import streamlit as st
+import matplotlib.pyplot as plt
 import numpy as np
 import random
-import matplotlib.pyplot as plt
-from itertools import permutations
 import seaborn as sns
+import streamlit as st
+from itertools import permutations
+import pandas as pd
 
-# Create city icons and color palette
-city_icons = {f"City {i+1}": f"♕" for i in range(10)}
+# Pastel Palette for Colors
 colors = sns.color_palette("pastel", 10)
 
-# Define default settings for the genetic algorithm
-n_population = 250
-crossover_per = 0.8
-mutation_per = 0.2
-n_generations = 200
+# City Icons
+city_icons = {
+    "♕", "♖", "♗", "♘", "♙", "♔", "♚", "♛", "♜", "♝"
+}
 
-# Function to calculate the Euclidean distance between two cities
+def get_city_input():
+    # Getting 10 city names and coordinates (x, y) from the user
+    city_names = []
+    city_coords = {}
+
+    for i in range(10):
+        city_name = st.text_input(f"Enter name for city {i + 1}:", f"City_{i + 1}")
+        city_names.append(city_name)
+
+        x_coord = st.number_input(f"Enter x-coordinate for {city_name}:", min_value=-100, max_value=100, value=random.randint(-50, 50))
+        y_coord = st.number_input(f"Enter y-coordinate for {city_name}:", min_value=-100, max_value=100, value=random.randint(-50, 50))
+        
+        city_coords[city_name] = (x_coord, y_coord)
+    
+    return city_names, city_coords
+
+def plot_city_map(city_names, city_coords):
+    fig, ax = plt.subplots()
+
+    ax.grid(False)  # Grid off
+
+    for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
+        color = colors[i]
+        icon = list(city_icons)[i]
+        ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
+        ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
+        ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30), textcoords='offset points')
+
+        # Connect cities with opaque lines
+        for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
+            if i != j:
+                ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
+
+    fig.set_size_inches(16, 12)
+    st.pyplot(fig)
+
+def initial_population(cities_list, n_population=250):
+    """
+    Generating initial population of cities randomly selected from all possible permutations
+    of the given cities.
+    """
+    population_perms = []
+    possible_perms = list(permutations(cities_list))
+    random_ids = random.sample(range(0, len(possible_perms)), n_population)
+
+    for i in random_ids:
+        population_perms.append(list(possible_perms[i]))
+
+    return population_perms
+
 def dist_two_cities(city_1, city_2, city_coords):
     city_1_coords = city_coords[city_1]
     city_2_coords = city_coords[city_2]
-    return np.sqrt((city_1_coords[0] - city_2_coords[0]) ** 2 + (city_1_coords[1] - city_2_coords[1]) ** 2)
+    return np.sqrt(np.sum((np.array(city_1_coords) - np.array(city_2_coords))**2))
 
-# Total distance for an individual path (sum of distances between consecutive cities)
-def total_distance(individual, city_coords):
+def total_dist_individual(individual, city_coords):
     total_dist = 0
-    for i in range(len(individual) - 1):
-        total_dist += dist_two_cities(individual[i], individual[i+1], city_coords)
-    total_dist += dist_two_cities(individual[-1], individual[0], city_coords)  # return to the starting city
+    for i in range(len(individual)):
+        if i == len(individual) - 1:
+            total_dist += dist_two_cities(individual[i], individual[0], city_coords)
+        else:
+            total_dist += dist_two_cities(individual[i], individual[i + 1], city_coords)
     return total_dist
 
-# Initialize population with random permutations of cities
-def initial_population(cities, n_population=250):
-    population = []
-    all_permutations = list(permutations(cities))
-    random_indices = random.sample(range(len(all_permutations)), n_population)
-    for idx in random_indices:
-        population.append(list(all_permutations[idx]))
-    return population
+def fitness_prob(population, city_coords):
+    total_dist_all_individuals = [total_dist_individual(individual, city_coords) for individual in population]
+    max_population_cost = max(total_dist_all_individuals)
+    population_fitness = max_population_cost - np.array(total_dist_all_individuals)
+    population_fitness_sum = sum(population_fitness)
+    population_fitness_probs = population_fitness / population_fitness_sum
+    return population_fitness_probs
 
-# Roulette Wheel Selection (fitness proportionate selection)
 def roulette_wheel(population, fitness_probs):
-    cumsum_fitness = np.cumsum(fitness_probs)
-    pick = random.random()
-    for i, value in enumerate(cumsum_fitness):
-        if value > pick:
-            return population[i]
-    return population[-1]  # Return the last individual if none is picked
+    population_fitness_probs_cumsum = fitness_probs.cumsum()
+    bool_prob_array = population_fitness_probs_cumsum < np.random.uniform(0, 1, 1)
+    selected_individual_index = len(bool_prob_array[bool_prob_array == True]) - 1
+    return population[selected_individual_index]
 
-# Crossover function (two-point crossover)
 def crossover(parent_1, parent_2):
-    size = len(parent_1)
-    cut1, cut2 = sorted(random.sample(range(size), 2))
-    offspring_1 = parent_1[:cut1] + [city for city in parent_2 if city not in parent_1[:cut1]]
-    offspring_2 = parent_2[:cut1] + [city for city in parent_1 if city not in parent_2[:cut1]]
+    n_cities_cut = len(parent_1) - 1
+    cut = round(random.uniform(1, n_cities_cut))
+    offspring_1, offspring_2 = [], []
+
+    offspring_1 = parent_1[:cut]
+    offspring_1 += [city for city in parent_2 if city not in offspring_1]
+
+    offspring_2 = parent_2[:cut]
+    offspring_2 += [city for city in parent_1 if city not in offspring_2]
+
     return offspring_1, offspring_2
 
-# Mutation function (swap mutation)
 def mutation(offspring):
-    idx1, idx2 = random.sample(range(len(offspring)), 2)
-    offspring[idx1], offspring[idx2] = offspring[idx2], offspring[idx1]
+    n_cities_cut = len(offspring) - 1
+    index_1, index_2 = round(random.uniform(0, n_cities_cut)), round(random.uniform(0, n_cities_cut))
+
+    offspring[index_1], offspring[index_2] = offspring[index_2], offspring[index_1]
     return offspring
 
-# Calculate fitness probabilities for a population
-def fitness_prob(population, city_coords):
-    distances = [total_distance(ind, city_coords) for ind in population]
-    max_distance = max(distances)
-    fitness = [max_distance - dist for dist in distances]
-    total_fitness = sum(fitness)
-    return np.array(fitness) / total_fitness
+def run_ga(city_names, n_population, n_generations, crossover_per, mutation_per, city_coords):
+    population = initial_population(city_names, n_population)
+    fitness_probs = fitness_prob(population, city_coords)
 
-# Main GA function
-def run_ga(cities, city_coords, n_population, n_generations, crossover_rate, mutation_rate):
-    population = initial_population(cities, n_population)
-    for generation in range(n_generations):
-        fitness_probs = fitness_prob(population, city_coords)
+    parents_list = [roulette_wheel(population, fitness_probs) for _ in range(int(crossover_per * n_population))]
 
-        # Selection: select parents based on fitness
-        parents = [roulette_wheel(population, fitness_probs) for _ in range(int(crossover_rate * n_population))]
-        
-        # Crossover: generate offspring
-        offspring = []
-        for i in range(0, len(parents), 2):
-            parent_1, parent_2 = parents[i], parents[i+1]
-            off1, off2 = crossover(parent_1, parent_2)
-            
-            # Mutation: occasionally mutate offspring
-            if random.random() < mutation_rate:
-                off1 = mutation(off1)
-            if random.random() < mutation_rate:
-                off2 = mutation(off2)
-                
-            offspring.append(off1)
-            offspring.append(off2)
-        
-        # Combine parents and offspring
-        population = parents + offspring
-        population = sorted(population, key=lambda ind: total_distance(ind, city_coords))
-        population = population[:n_population]  # Keep the best n_population individuals
+    offspring_list = []
+    for i in range(0, len(parents_list), 2):
+        offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i + 1])
 
-    # Return the best solution found
-    best_individual = population[0]
-    best_distance = total_distance(best_individual, city_coords)
-    return best_individual, best_distance
+        mutate_threashold = random.random()
+        if mutate_threashold > (1 - mutation_per):
+            offspring_1 = mutation(offspring_1)
 
-# Streamlit UI elements for user input
-st.title("TSP Genetic Algorithm Solver")
+        mutate_threashold = random.random()
+        if mutate_threashold > (1 - mutation_per):
+            offspring_2 = mutation(offspring_2)
 
-# Collect city names and coordinates from user input
-city_names = []
-city_coords = {}
-for i in range(10):
-    city_name = st.text_input(f"City {i+1}", f"City {i+1}")
-    x_coord = st.number_input(f"X Coordinate", min_value=1, max_value=10, step=1, key=f"x{i}")
-    y_coord = st.number_input(f"Y Coordinate", min_value=1, max_value=10, step=1, key=f"y{i}")
-    city_names.append(city_name)
-    city_coords[city_name] = (x_coord, y_coord)
+        offspring_list.append(offspring_1)
+        offspring_list.append(offspring_2)
 
-# Hyperparameters for the genetic algorithm
-#n_population = st.slider("Population Size", 50, 500, 100)
-#n_generations = st.slider("Number of Generations", 50, 500, 200)
-#crossover_rate = st.slider("Crossover Rate", 0.1, 1.0, 0.8)
-#mutation_rate = st.slider("Mutation Rate", 0.01, 1.0, 0.2)
+    mixed_offspring = parents_list + offspring_list
 
-# Run GA when user clicks the button
-if st.button("Run GA"):
-    best_individual, best_distance = run_ga(city_names, city_coords, n_population, n_generations, crossover_rate, mutation_rate)
-    
-    # Display results
-    st.write(f"Best Distance: {best_distance:.2f}")
-    st.write("Best Path:", best_individual)
-    
-    # Plot the path
-    x_values = [city_coords[city][0] for city in best_individual]
-    y_values = [city_coords[city][1] for city in best_individual]
-    
-    # To make the path loop (start == end)
-    x_values.append(x_values[0])
-    y_values.append(y_values[0])
+    fitness_probs = fitness_prob(mixed_offspring, city_coords)
+    sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
+    best_fitness_indices = sorted_fitness_indices[:n_population]
+    best_mixed_offspring = [mixed_offspring[i] for i in best_fitness_indices]
 
-    fig, ax = plt.subplots()
-    ax.plot(x_values, y_values, 'r-o', label='TSP Route', linewidth=2)
-    ax.set_title(f"TSP Path with Total Distance {best_distance:.2f}")
-    for i, city in enumerate(best_individual):
-        ax.annotate(f"{city}", (x_values[i], y_values[i]), fontsize=10, ha='right')
+    for i in range(n_generations):
+        fitness_probs = fitness_prob(best_mixed_offspring, city_coords)
+        parents_list = [roulette_wheel(best_mixed_offspring, fitness_probs) for _ in range(int(crossover_per * n_population))]
 
-    st.pyplot(fig)
+        offspring_list = []
+        for i in range(0, len(parents_list), 2):
+            offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i + 1])
+
+            mutate_threashold = random.random()
+            if mutate_threashold > (1 - mutation_per):
+                offspring_1 = mutation(offspring_1)
+
+            mutate_threashold = random.random()
+            if mutate_threashold > (1 - mutation_per):
+                offspring_2 = mutation(offspring_2)
+
+            offspring_list.append(offspring_1)
+            offspring_list.append(offspring_2)
+
+        mixed_offspring = parents_list + offspring_list
+        fitness_probs = fitness_prob(mixed_offspring, city_coords)
+        sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
+        best_fitness_indices = sorted_fitness_indices[:int(0.8 * n_population)]
+
+        best_mixed_offspring = [mixed_offspring[i] for i in best_fitness_indices]
+
+        old_population_indices = [random.randint(0, n_population - 1) for _ in range(int(0.2 * n_population))]
+        for i in old_population_indices:
+            best_mixed_offspring.append(population[i])
+
+        random.shuffle(best_mixed_offspring)
+
+    return best_mixed_offspring
+
+# Streamlit UI
+st.title("Traveling Salesman Problem (TSP) with Genetic Algorithm")
+
+# User input for city names and coordinates
+city_names, city_coords = get_city_input()
+
+# Plot city map
+plot_city_map(city_names, city_coords)
+
+# Run the genetic algorithm
+best_mixed_offspring = run_ga(city_names, 250, 200, 0.8, 0.2, city_coords)
+
+# Calculate the total distances of all individuals
+total_dist_all_individuals = [total_dist_individual(individual, city_coords) for individual in best_mixed_offspring]
+index_minimum = np.argmin(total_dist_all_individuals)
+minimum_distance = min(total_dist_all_individuals)
+
+# Display results
+st.write(f"Minimum Distance: {
