@@ -15,7 +15,7 @@ with st.form("city_input_form"):
     city_coords = {}
     for i in range(1, 11):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
-        cities_names = col1.text_input(f"City {i}")
+        cities_names = col1.text_input(f"City {i}", {i})
         x = col2.number_input(f"X Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"x{i}")
         y = col3.number_input(f"Y Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"y{i}")
         city_coords[cities_names] = (x, y)
