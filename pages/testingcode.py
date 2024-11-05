@@ -25,9 +25,9 @@ with st.form("city_input_form"):
 
 # Code untuk button
 if submitButton:
-    cities_names = list(city_coords.keys())
+    #cities_names = list(city_coords.keys())
     
-    city_coords[cities_names] = (x, y)
+    city_coords = dict(zip(cities_names, zip(x, y)))
 
     # Pastel palette
     colors = sns.color_palette("pastel", 10)
