@@ -26,16 +26,16 @@ for i in range(10):
     
     # City Icons
     city_icons = {
-        {cities_names}: "♕",
-        {cities_names}: "♖",
-        {cities_names}: "♗",
-        {cities_names}: "♘",
-        {cities_names}: "♙",
-        {cities_names}: "♔",
-        {cities_names}: "♚",
-        {cities_names}: "♛",
-        {cities_names}: "♜",
-        {cities_names}: "♝"
+        1: "♕", 
+        2: "♖", 
+        3: "♗", 
+        4: "♘", 
+        5: "♙",
+        6: "♔", 
+        7: "♚",
+        8: "♛", 
+        9: "♜", 
+        10: "♝"
     }
     
     fig, ax = plt.subplots()
