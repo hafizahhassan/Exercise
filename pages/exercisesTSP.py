@@ -38,16 +38,16 @@ if submitButton:
 
     # City Icons
     city_icons = {
-        1: "♕", 
-        2: "♖", 
-        3: "♗", 
-        4: "♘", 
-        5: "♙",
-        6: "♔", 
-        7: "♚",
-        8: "♛", 
-        9: "♜", 
-        10: "♝"
+        "City 1": "♕", 
+        "City 2": "♖", 
+        "City 3": "♗", 
+        "City 4": "♘", 
+        "City 5": "♙",
+        "City 6": "♔", 
+        "City 7": "♚", 
+        "City 8": "♛", 
+        "City 9": "♜", 
+        "City 10": "♝"
     }
 
     # Plotting city
