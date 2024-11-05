@@ -16,8 +16,8 @@ st.write("Enter the coordinates for 10 cities:")
 user_cities = []
 for i in range(10):
     city_name = st.text_input(f"City {i + 1}", value=f"City{i + 1}")
-    x_coord = st.number_input("X Coordinate", value=float(i * 2))
-    y_coord = st.number_input("Y Coordinate", value=float(i))
+    x_coord = st.number_input("X Coordinate", min_value=1, max_value=10, step=1, key=f"x{i}")
+    y_coord = st.number_input("Y Coordinate", min_value=1, max_value=10, step=1, key=f"y{i}")
     user_cities.append((city_name, x_coord, y_coord))
 
 # Submit button to generate results
