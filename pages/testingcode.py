@@ -192,4 +192,25 @@ index_minimum = np.argmin(total_dist_all_individuals)
 minimum_distance = min(total_dist_all_individuals)
 
 # Display results
-st.write(f"Minimum Distance: {
+st.write(f"Minimum Distance: {minimum_distance}")
+st.write(f"Shortest Path: {best_mixed_offspring[index_minimum]}")
+
+# Plot the best route
+shortest_path = best_mixed_offspring[index_minimum]
+x_shortest = [city_coords[city][0] for city in shortest_path] + [city_coords[shortest_path[0]][0]]
+y_shortest = [city_coords[city][1] for city in shortest_path] + [city_coords[shortest_path[0]][1]]
+
+fig, ax = plt.subplots()
+ax.plot(x_shortest, y_shortest, '--go', label='Best Route', linewidth=2.5)
+plt.legend()
+
+for i in range(len(x_shortest) - 1):
+    ax.plot([x_shortest[i], x_shortest[i + 1]], [y_shortest[i], y_shortest[i + 1]], 'k-', alpha=0.09, linewidth=1)
+
+plt.title(f"TSP Best Route Using GA\nTotal Distance: {round(minimum_distance, 3)}", fontsize=18)
+
+for i, city in enumerate(shortest_path):
+    ax.annotate(f"{i+1}- {city}", (x_shortest[i], y_shortest[i]), fontsize=12)
+
+fig.set_size_inches(16, 12)
+st.pyplot(fig)
