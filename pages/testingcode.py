@@ -37,9 +37,16 @@ if st.button("Submit"):
 
     # City icons for annotation
     city_icons = {
-        "Gliwice": "♕", "Cairo": "♖", "Rome": "♗", "Krakow": "♘",
-        "Paris": "♙", "Alexandria": "♔", "Berlin": "♚", "Tokyo": "♛",
-        "Rio": "♜", "Budapest": "♝"
+        1: "♕", 
+        2: "♖", 
+        3: "♗", 
+        4: "♘", 
+        5: "♙",
+        6: "♔", 
+        7: "♚",
+        8: "♛", 
+        9: "♜", 
+        10: "♝"
     }
     
     # Visualization of cities and their connections
