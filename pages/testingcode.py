@@ -265,9 +265,9 @@ def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_pe
 
     best_mixed_offspring = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
 
-total_dist_all_individuals = []
-for i in range(0, n_population):
-    total_dist_all_individuals.append(total_dist_individual(best_mixed_offspring[i]))
+    total_dist_all_individuals = []
+    for i in range(0, n_population):
+        total_dist_all_individuals.append(total_dist_individual(best_mixed_offspring[i]))
 
 index_minimum = np.argmin(total_dist_all_individuals)
 
