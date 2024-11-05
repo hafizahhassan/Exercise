@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 from itertools import permutations, combinations
 from random import shuffle
@@ -57,7 +56,7 @@ if submitButton:
 
     for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
         color = colors[i]
-        icon = city_icons[city]
+        icon = city_icons[i + 1]
         ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
         ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
         ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
