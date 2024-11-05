@@ -104,17 +104,22 @@ st.title("TSP Genetic Algorithm Solver")
 city_names = []
 city_coords = {}
 for i in range(10):
-    city_name = st.text_input(f"City {i+1} Name", f"City {i+1}")
-    x_coord = st.slider(f"X Coordinate for {city_name}", 1, 10, 1)
-    y_coord = st.slider(f"Y Coordinate for {city_name}", 1, 10, 1)
+    city_name = st.text_input(f"City {i+1}", f"City {i+1}")
+    x_coord = st.number_input(f"X Coordinate", min_value=1, max_value=10, step=1, key=f"x{i}")
+    y_coord = st.number_input(f"Y Coordinate", min_value=1, max_value=10, step=1, key=f"y{i}")
     city_names.append(city_name)
     city_coords[city_name] = (x_coord, y_coord)
 
 # Hyperparameters for the genetic algorithm
-n_population = st.slider("Population Size", 50, 500, 100)
-n_generations = st.slider("Number of Generations", 50, 500, 200)
-crossover_rate = st.slider("Crossover Rate", 0.1, 1.0, 0.8)
-mutation_rate = st.slider("Mutation Rate", 0.01, 1.0, 0.2)
+#n_population = st.slider("Population Size", 50, 500, 100)
+#n_generations = st.slider("Number of Generations", 50, 500, 200)
+#crossover_rate = st.slider("Crossover Rate", 0.1, 1.0, 0.8)
+#mutation_rate = st.slider("Mutation Rate", 0.01, 1.0, 0.2)
+# Define default settings for the genetic algorithm
+n_population = 250
+crossover_per = 0.8
+mutation_per = 0.2
+n_generations = 200
 
 # Run GA when user clicks the button
 if st.button("Run GA"):
