@@ -35,7 +35,7 @@ if submitButton:
     n_generations = 200
     
     # Pastel Pallete
-    colors = sns.color_palette("pastel", len(cities_names))
+    colors = sns.color_palette("pastel", 10)
 
     # City Icons
     city_icons = {
