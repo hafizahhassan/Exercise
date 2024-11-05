@@ -22,3 +22,21 @@ with st.form("city_input_form"):
         
     # Button
     submitButton = st.form_submit_button("Submit")
+    
+if submitButton:
+    st.write(city_coords)
+
+st.write("Outside the form")
+        
+
+
+
+
+
+
+
+
+
+
+
+
