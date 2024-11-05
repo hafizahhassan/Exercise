@@ -50,8 +50,7 @@ if submitButton:
         icon = list(city_icons)[i]
         ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
         ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
-        ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
-                    textcoords='offset points')
+        ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30), textcoords='offset points')
 
         # Connect cities with opaque lines
         for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
@@ -59,22 +58,10 @@ if submitButton:
                 ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
 
     fig.set_size_inches(16, 12)
-    #plt.show()
     st.pyplot(fig)
     
     #population
     def initial_population(cities_list, n_population = 250):
-    
-        """
-        Generating initial population of cities randomly selected from the all possible permutations
-        of the given cities.
-        Input:
-        1- Cities list
-        2- Number of population
-        Output:
-        Generated lists of cities
-        """
-    
         possible_perms = list(permutations(cities_list))
         population_perms = random.sample(possible_perms, n_population)
         return population_perms
@@ -96,13 +83,6 @@ if submitButton:
     
     #fitness probablity function
     def fitness_prob(population):
-        """
-        Calculating the fitness probability
-        Input:
-        1- Population
-        Output:
-        Population fitness probability
-        """
         total_dist_all_individuals = []
         for i in range(0, len(population)):
             total_dist_all_individuals.append(total_dist_individual(population[i]))
@@ -115,14 +95,6 @@ if submitButton:
     
     #roulette wheel    
     def roulette_wheel(population, fitness_probs):
-        """
-        Implement selection strategy based on roulette wheel proportionate selection.
-        Input:
-        1- population
-        2- fitness probabilities
-        Output:
-        selected individual
-        """
         population_fitness_probs_cumsum = fitness_probs.cumsum()
         bool_prob_array = population_fitness_probs_cumsum < np.random.uniform(0,1,1)
         selected_individual_index = len(bool_prob_array[bool_prob_array == True]) - 1
@@ -130,15 +102,6 @@ if submitButton:
     
     #crossover
     def crossover(parent_1, parent_2):
-        """
-        Implement mating strategy using simple crossover between 2 parents
-        Input:
-        1- parent 1
-        2- parent 2
-        Output:
-        1- offspring 1
-        2- offspring 2
-        """
         n_cities_cut = len(cities_names) - 1
         cut = round(random.uniform(1, n_cities_cut))
         offspring_1 = []
@@ -154,13 +117,6 @@ if submitButton:
     
     #mutation
     def mutation(offspring):
-        """
-        Implement mutation strategy in a single offspring
-        Input:
-        1- offspring individual
-        Output:
-        1- mutated offspring individual
-        """
         n_cities_cut = len(cities_names) - 1
         index_1 = round(random.uniform(0,n_cities_cut))
         index_2 = round(random.uniform(0,n_cities_cut))
@@ -183,20 +139,13 @@ if submitButton:
         for i in range(0,len(parents_list), 2):
             offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i+1])
     
-        #     print(offspring_1)
-        #     print(offspring_2)
-        #     print()
-    
             mutate_threashold = random.random()
             if(mutate_threashold > (1-mutation_per)):
                 offspring_1 = mutation(offspring_1)
-        #         print("Offspring 1 mutated", offspring_1)
     
             mutate_threashold = random.random()
             if(mutate_threashold > (1-mutation_per)):
                 offspring_2 = mutation(offspring_2)
-        #         print("Offspring 2 mutated", offspring_2)
-    
     
             offspring_list.append(offspring_1)
             offspring_list.append(offspring_2)
@@ -208,13 +157,9 @@ if submitButton:
         best_fitness_indices = sorted_fitness_indices[0:n_population]
         best_mixed_offspring = []
         for i in best_fitness_indices:
-            best_mixed_offspring.append(mixed_offspring[i])
-    
-    
+            best_mixed_offspring.append(mixed_offspring[i]) 
     
         for i in range(0, n_generations):
-            # if (i%10 == 0):
-                # print("Generation: ", i)
     
             fitness_probs = fitness_prob(best_mixed_offspring)
             parents_list = []
@@ -236,7 +181,6 @@ if submitButton:
                 offspring_list.append(offspring_1)
                 offspring_list.append(offspring_2)
     
-    
             mixed_offspring = parents_list + offspring_list
             fitness_probs = fitness_prob(mixed_offspring)
             sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
@@ -248,7 +192,6 @@ if submitButton:
     
             old_population_indices = [random.randint(0, (n_population - 1)) for j in range(int(0.2*n_population))]
             for i in old_population_indices:
-    #             print(i)
                 best_mixed_offspring.append(population[i])
     
             random.shuffle(best_mixed_offspring)
@@ -270,7 +213,6 @@ if submitButton:
     #shortest path
     # shortest_path = offspring_list[index_minimum]
     shortest_path = best_mixed_offspring[index_minimum]
-    #shortest_path
     st.write(shortest_path)
     
     x_shortest = []
@@ -304,6 +246,4 @@ if submitButton:
         ax.annotate(str(i+1)+ "- " + txt, (x_shortest[i], y_shortest[i]), fontsize= 20)
     
     fig.set_size_inches(16, 12)
-    # plt.grid(color='k', linestyle='dotted')
-    #plt.show()
     st.pyplot(fig)
