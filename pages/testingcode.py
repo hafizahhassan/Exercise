@@ -22,11 +22,38 @@ with st.form("city_input_form"):
         
     # Button
     submitButton = st.form_submit_button("Submit")
-    
-if submitButton:
-    st.write(city_coords)
 
 st.write("Outside the form")
+
+if submitButton:
+    # Display list input
+    #st.write(city_coords)
+    
+    n_population = 250
+    crossover_per = 0.8
+    mutation_per = 0.2
+    n_generations = 200
+    
+    # Pastel Pallete
+    colors = sns.color_palette("pastel", len(cities_names))
+
+    # City Icons
+    city_icons = {
+        1: "♕",
+        2: "♖",
+        3: "♗",
+        4: "♘",
+        5: "♙",
+        6: "♔",
+        7: "♚",
+        8: "♛",
+        9: "♜",
+        10: "♝"
+    }
+    
+    # Plotting city
+    fig, ax = plt.subplots()
+    ax.grid(False)  # Grid
         
 
 
