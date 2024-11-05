@@ -59,8 +59,8 @@ with st.form("city_input_form"):
         #plt.show()
         st.pyplot(fig)
         
-    # Button
-    submitButton = st.form_submit_button("Submit")
+# Button
+submitButton = st.form_submit_button("Submit")
 
 # Code untuk button
 if submitButton:
