@@ -67,7 +67,7 @@ if submitButton:
         # Connect cities with opaque lines
         for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
             if i != j:
-                ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
+                ax.plot([city_x, other_x], [city_y, other_y], color='red', linestyle='-', linewidth=1, alpha=0.1)
 
     fig.set_size_inches(16, 12)
     st.pyplot(fig)
