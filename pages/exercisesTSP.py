@@ -27,7 +27,7 @@ with st.form("city_input_form"):
         x = col2.number_input(f"X Coordinate for (City {i+1})", min_value=1, max_value=10, step=1)
         x.append(x)
         
-        y = col3.number_input(f"Y Coordinate for (City {i+1})}", min_value=1, max_value=10, step=1)
+        y = col3.number_input(f"Y Coordinate for (City {i+1})", min_value=1, max_value=10, step=1)
         y.append(y)
         #city_coords[cities_names] = (x, y)
         
