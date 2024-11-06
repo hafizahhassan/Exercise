@@ -200,7 +200,7 @@ if st.button("Submit"):       #submit button
         #     print(offspring_2)
         #     print()
 
-        mutate_threashold = random.random()
+            mutate_threashold = random.random()
             if(mutate_threashold > (1-mutation_per)):
                 offspring_1 = mutation(offspring_1)
         #         print("Offspring 1 mutated", offspring_1)
