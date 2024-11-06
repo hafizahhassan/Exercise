@@ -15,24 +15,24 @@ cities_names = []
 x = []
 y = []
 
-    # Create input form for cities
-    with st.form("city_input_form"):
-        #city_coords = {}
-        for i in range(10):
-            col1, col2, col3 = st.columns(3)    #Buat 3 column
-            
-            city_name = col1.text_input(f"City {i+1}", value=f"City {i+1}")
-            cities_names.append(city_name)
-            
-            city_x = col2.number_input(f"X Coordinate for (City {i+1})", min_value=1, max_value=10, step=1)
-            x.append(city_x)
-            
-            city_y = col3.number_input(f"Y Coordinate for (City {i+1})", min_value=1, max_value=10, step=1)
-            y.append(city_y)
-            #city_coords[cities_names] = (x, y)
-            
-        # Button
-        submitButton = st.form_submit_button("Submit")
+# Create input form for cities
+with st.form("city_input_form"):
+    #city_coords = {}
+    for i in range(10):
+        col1, col2, col3 = st.columns(3)    #Buat 3 column
+        
+        city_name = col1.text_input(f"City {i+1}", value=f"City {i+1}")
+        cities_names.append(city_name)
+        
+        city_x = col2.number_input(f"X Coordinate for (City {i+1})", min_value=1, max_value=10, step=1)
+        x.append(city_x)
+        
+        city_y = col3.number_input(f"Y Coordinate for (City {i+1})", min_value=1, max_value=10, step=1)
+        y.append(city_y)
+        #city_coords[cities_names] = (x, y)
+        
+    # Button
+    submitButton = st.form_submit_button("Submit")
 
 # Code untuk bila tekan button
 if submitButton:
