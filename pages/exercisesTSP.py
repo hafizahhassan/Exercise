@@ -10,22 +10,38 @@ import streamlit as st
 
 st.title("Cities Coordinate Input TSP")
 
+# Collect data
+cities_names = []
+x = []
+y = []
+
 # Create input form for cities
 with st.form("city_input_form"):
-    city_coords = {}
+    #city_coords = {}
     for i in range(1, 11):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
-        cities_names = col1.text_input(f"City {i}", f"City")
-        x = col2.number_input(f"X Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"x{i}")
-        y = col3.number_input(f"Y Coordinate for {cities_names}", min_value=1, max_value=10, step=1, key=f"y{i}")
-        city_coords[cities_names] = (x, y)
+        
+        cities_names = col1.text_input(f"City {i+1}", value=f"City {i+1}")
+        cities_names.append(cities_names)
+        
+        x = col2.number_input(f"X Coordinate for (City {i+1})", min_value=1, max_value=10, step=1)
+        x.append(x)
+        
+        y = col3.number_input(f"Y Coordinate for (City {i+1})}", min_value=1, max_value=10, step=1)
+        y.append(y)
+        #city_coords[cities_names] = (x, y)
         
     # Button
     submitButton = st.form_submit_button("Submit")
 
-# Code untuk button
+# Code untuk bila tekan button
 if submitButton:
-    cities_names = list(city_coords.keys())
+    #cities_names = list(city_coords.keys())
+    
+    city_coords = dict(zip(cities_names, zip(x, y)))
+    
+    # City Icons
+    city_icons = dict(zip(cities_names, ["♕", "♖", "♗", "♘", "♙", "♔", "♚", "♛", "♜", "♝"]))
 
     # Define default settings for the genetic algorithm
     n_population = 250
@@ -34,20 +50,16 @@ if submitButton:
     n_generations = 200
     
     # Pastel palette
-    colors = sns.color_palette("pastel", 10)
+    colors = sns.color_palette("pastel", len(cities_names))
 
-    # City Icons
-    city_icons = {
-        "♕", "♖", "♗", "♘", "♙", "♔", "♚", "♛", "♜", "♝"
-    }
 
     # Plotting city
     fig, ax = plt.subplots()
-    ax.grid(False)  # Grid
+    ax.grid(False) 
 
     for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
-        color = colors[i]
-        icon = list(city_icons)[i]
+        color = colors[i % len(colors)]
+        icon = city_icons[city]
         ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
         ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
         ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30), textcoords='offset points')
@@ -207,7 +219,6 @@ if submitButton:
     index_minimum = np.argmin(total_dist_all_individuals)
     
     minimum_distance = min(total_dist_all_individuals)
-    #minimum_distance 
     st.write(minimum_distance)
     
     #shortest path
