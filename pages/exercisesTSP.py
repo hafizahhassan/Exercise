@@ -75,7 +75,11 @@ if submitButton:
     #population
     def initial_population(cities_list, n_population = 250):
         possible_perms = list(permutations(cities_list))
-        population_perms = random.sample(possible_perms, n_population)
+        population_perms = random.sample(range(0,len(possible_perms)), n_population)
+
+        for i in random_ids:
+            population_perms.append(list(possible_perms[i]))
+            
         return population_perms
     
     #distance between two cities
