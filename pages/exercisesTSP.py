@@ -76,7 +76,7 @@ if submitButton:
     def initial_population(cities_list, n_population = 250):
         population_perms = []
         possible_perms = list(permutations(cities_list))
-        population_perms = random.sample(range(0,len(possible_perms)), n_population)
+        random_ids = random.sample(range(0,len(possible_perms)), n_population)
 
         for i in random_ids:
             population_perms.append(list(possible_perms[i]))
