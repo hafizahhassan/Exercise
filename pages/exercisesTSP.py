@@ -228,7 +228,7 @@ if submitButton:
     
     #shortest path
     # shortest_path = offspring_list[index_minimum]
-    shortest_path = best_mixed_offspring[1-10]
+    shortest_path = best_mixed_offspring[index_minimum]
     st.write("Shortest Path : ", shortest_path)
     
     x_shortest = []
