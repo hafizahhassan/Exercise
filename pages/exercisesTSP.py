@@ -17,7 +17,7 @@ y = []
 
 # Create input form for cities
 with st.form("city_input_form"):
-    city_coords = {}
+    #city_coords = {}
     for i in range(10):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
         
