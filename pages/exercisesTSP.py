@@ -8,7 +8,7 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-st.title("City CoordinateS Input TSP")
+st.title("City Coordinates Input TSP")
 
 # Collect data
 cities_names = []
