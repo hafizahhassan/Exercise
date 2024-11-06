@@ -304,7 +304,7 @@ if st.button("Submit"):       #submit button
               fontsize=25,
               color="k")
 
-str_params = '\n'+str(n_generations)+' Generations\n'+str(n_population)+' Population Size\n'+str(crossover_per)+' Crossover\n'+str(mutation_per)+' Mutation'
+    str_params = '\n'+str(n_generations)+' Generations\n'+str(n_population)+' Population Size\n'+str(crossover_per)+' Crossover\n'+str(mutation_per)+' Mutation'
     plt.suptitle("Total Distance Travelled: "+
                  str(round(minimum_distance, 3)) +
                  str_params, fontsize=18, y = 1.047)
