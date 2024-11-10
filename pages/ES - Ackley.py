@@ -1,10 +1,7 @@
-import matplotlib.pyplot as plt
 import streamlit as st
-import pandas as pd
-import seaborn as sns
-import random
-import numpy as np
 
+import numpy as np
+import matplotlib.pyplot as plt
 from numpy import arange, exp, sqrt, cos, e, pi, meshgrid
 from mpl_toolkits.mplot3d import Axes3D
 
