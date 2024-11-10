@@ -5,6 +5,9 @@ import seaborn as sns
 import random
 import numpy as np
 
+from numpy import arange, exp, sqrt, cos, e, pi, meshgrid
+from mpl_toolkits.mplot3d import Axes3D
+
 # ackley multimodal function
 from numpy import arange
 from numpy import exp
