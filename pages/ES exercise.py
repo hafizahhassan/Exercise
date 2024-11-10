@@ -5,22 +5,13 @@ import matplotlib.pyplot as plt
 #from numpy import arange, exp, sqrt, cos, e, pi, meshgrid
 from mpl_toolkits.mplot3d import Axes3D
 
-import pandas as pd
-import seaborn as sns
+from random import shuffle
 import random
 import numpy as np
-
-# evolution strategy (mu + lambda) of the ackley objective function
-from numpy import asarray
-from numpy import exp
-from numpy import sqrt
-from numpy import cos
-from numpy import e
-from numpy import pi
-from numpy import argsort
-from numpy.random import randn
-from numpy.random import rand
-from numpy.random import seed
+import statistics
+import pandas as pd
+import seaborn as sns
+import streamlit as st
 
 st.title("ES Exercise")
 
