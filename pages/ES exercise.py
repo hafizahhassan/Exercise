@@ -7,6 +7,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 import pandas as pd
 import seaborn as sns
+import random
+import numpy as np
 
 # evolution strategy (mu + lambda) of the ackley objective function
 from numpy import asarray
