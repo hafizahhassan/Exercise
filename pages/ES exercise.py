@@ -1,10 +1,5 @@
-import streamlit as st
-
-import numpy as np
 import matplotlib.pyplot as plt
-#from numpy import arange, exp, sqrt, cos, e, pi, meshgrid
-from mpl_toolkits.mplot3d import Axes3D
-
+from itertools import permutations, combinations
 from random import shuffle
 import random
 import numpy as np
@@ -13,10 +8,15 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-st.title("ES Exercise")
+st.title("City Coordinates Input TSP")
+
+# Collect data
+cities_names = []
+x = []
+y = []
 
 # Create input form for cities
-with st.form("es_form"):
+with st.form("city_input_form"):
     st.write("Enter up to 10 cities with their coordinates (x,y) in range 1-10 :")
     for i in range(10):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
@@ -31,6 +31,6 @@ with st.form("es_form"):
         y.append(city_y)
         
     # Button
-    submit = st.form_submit_button("Submit")
+    submitButton = st.form_submit_button("Submit")
     
 st.write("O U T P U T")
