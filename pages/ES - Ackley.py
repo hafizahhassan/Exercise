@@ -19,7 +19,9 @@ from numpy.random import randn
 from numpy.random import rand
 from numpy.random import seed
 from numpy import asarray
- 
+
+st.title("Ackley Multimodal Function")
+
 # objective function
 def objective(x, y):
 	return -20.0 * exp(-0.2 * sqrt(0.5 * (x**2 + y**2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y))) + e + 20
