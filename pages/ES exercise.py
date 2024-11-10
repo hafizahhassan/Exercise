@@ -8,11 +8,11 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-st.title("City Coordinates Input TSP")
+st.title("Exercise ES")
 
 # Create input form for cities
 with st.form("es_form"):
-    st.write("Enter up to 10 cities with their coordinates (x,y) in range 1-10 :")
+    st.write("Choose button you want to see the Output : ")
 
     TARGET = st.text_input("Enter your name : ")
         
