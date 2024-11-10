@@ -40,4 +40,5 @@ axis.plot_surface(x, y, results, cmap='jet')
 
 # show the plot
 #pyplot.show()
+fig.set_size_inches(16, 12)
 st.pyplot(fig)
