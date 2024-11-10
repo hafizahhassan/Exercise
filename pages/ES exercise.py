@@ -16,7 +16,7 @@ with st.form("es_form"):
 
     col1, col2 = st.columns(2)
     TARGET = col1.st.text_input("Enter your name : ")
-    submitButton2 = col2st.form_submit_button("Submit")
+    submitButton2 = col2.st.form_submit_button("Submit")
         
     # Button
     submitButton = st.form_submit_button("Submit")
