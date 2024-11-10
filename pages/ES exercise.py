@@ -13,10 +13,6 @@ st.title("Exercise ES")
 # Create input form for cities
 with st.form("es_form"):
     st.write("Choose button you want to see the Output : ")
-
-    col1, col2 = st.columns(2)
-    TARGET = col1.st.text_input("Enter your name : ")
-    col2.st.button("Submit")
         
     # Button
     submitButton = st.form_submit_button("Submit")
