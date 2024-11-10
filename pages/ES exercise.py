@@ -13,7 +13,7 @@ with st.form(key="my_form"):
     submit_button = st.form_submit_button(label="Submit")
     
     # Add another button outside form for extra action
-    clear_button = st.button("Clear Form")
+clear_button = st.button("Clear Form")
 
 # Display output based on submit button click
 if submit_button:
