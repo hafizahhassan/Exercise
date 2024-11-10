@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+import seaborn as sns
 
 # ackley multimodal function
 from numpy import arange
