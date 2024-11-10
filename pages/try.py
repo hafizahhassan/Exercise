@@ -160,10 +160,10 @@ if st.button("Button"):
       offspring_list.append(offspring_2)
   
     mixed_offspring = parents_list + offspring_list
-  
     fitness_probs = fitness_prob(mixed_offspring)
     sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
     best_fitness_indices = sorted_fitness_indices[0:n_population]
+    
     best_mixed_offspring = []
     for i in best_fitness_indices:
       best_mixed_offspring.append(mixed_offspring[i]) 
