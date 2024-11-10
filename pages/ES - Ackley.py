@@ -39,4 +39,5 @@ axis = figure.add_subplot(projection='3d')
 axis.plot_surface(x, y, results, cmap='jet')
 
 # show the plot
-pyplot.show()
+#pyplot.show()
+st.pyplot(fig)
