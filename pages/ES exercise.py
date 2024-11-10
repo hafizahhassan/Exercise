@@ -4,6 +4,6 @@ import streamlit as st
 st.title("Form with Two Buttons")
 
 col1, col3 = st.columns(2)
-submit_button = col1.st.form_submit_button("Submit")
-clear_button = col2.st.button("Clear Form")
+submit_button = col1.form_submit_button("Submit")
+clear_button = col2.button("Clear Form")
 
