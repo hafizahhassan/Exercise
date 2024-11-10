@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 import seaborn as sns
+import random
+import numpy as np
 
 # ackley multimodal function
 from numpy import arange
