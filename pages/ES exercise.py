@@ -18,5 +18,6 @@ with st.form("es_form"):
         
     # Button
     submitButton = st.form_submit_button("Submit")
+    submitButton2 = st.form_submit_button("Submit")
     
 st.write("O U T P U T")
