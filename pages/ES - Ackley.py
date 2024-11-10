@@ -12,6 +12,8 @@ from numpy.random import randn
 from numpy.random import rand
 from numpy.random import seed
 from numpy import asarray
+
+import streamlit as st
  
 # objective function
 def objective(x, y):
