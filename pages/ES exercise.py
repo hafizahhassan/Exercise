@@ -21,5 +21,14 @@ with st.form("es_form"):
     
     # Add another button outside form for extra action
     clear_button = st.button("Clear Form")
+
+# Display output based on submit button click
+if submit_button:
+    st.write(f"Name: {name}")
+    st.write(f"Age: {age}")
+
+# Action for the clear button
+if clear_button:
+    st.session_state["my_form"] = None  # Resets form values (Streamlit will handle clearing on reload)
     
 st.write("O U T P U T")
