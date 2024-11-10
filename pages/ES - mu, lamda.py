@@ -16,4 +16,4 @@ from numpy.random import randn
 from numpy.random import rand
 from numpy.random import seed
 
-st.title("Ackley Multimodal Function")
+st.title("Develop a 'mu, lamda' in ES")
