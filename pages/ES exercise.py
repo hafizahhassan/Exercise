@@ -31,6 +31,6 @@ with st.form("es_form"):
         y.append(city_y)
         
     # Button
-    submitButton = st.form_submit_button("Submit")
+    submit = st.form_submit_button("Submit")
     
 st.write("O U T P U T")
