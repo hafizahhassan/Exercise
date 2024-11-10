@@ -118,7 +118,7 @@ if button2:
 		return True
 	
 	# evolution strategy (mu, lambda) algorithm
-	def ee_plus(objective, bounds, n_iter, step_size, mu, lam):
+	def es_plus(objective, bounds, n_iter, step_size, mu, lam):
 		best, best_eval = None, 1e+10
 	
 		n_children = int(lam / mu)        # calculate the number of children per parent
