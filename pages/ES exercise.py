@@ -66,16 +66,16 @@ if button1:
 		
 			children = list()              # create children from parents
 		
-		for i in selected:
-			if scores[i] < best_eval:    # check if this parent is the best solution ever seen
-				best, best_eval = population[i], scores[i]
-				st.write("%d, Best: f(%s) = %.5f" % (epoch, best, best_eval))
-		
-			for _ in range(n_children):  # create children for paren
-				child = None
-				while child is None or not in_bounds(child, bounds):
-					child = population[i] + randn(len(bounds)) * step_size
-				children.append(child)
+			for i in selected:
+				if scores[i] < best_eval:    # check if this parent is the best solution ever seen
+					best, best_eval = population[i], scores[i]
+					st.write("%d, Best: f(%s) = %.5f" % (epoch, best, best_eval))
+			
+				for _ in range(n_children):  # create children for paren
+					child = None
+					while child is None or not in_bounds(child, bounds):
+						child = population[i] + randn(len(bounds)) * step_size
+					children.append(child)
 		
 			# replace population with children
 			population = children
