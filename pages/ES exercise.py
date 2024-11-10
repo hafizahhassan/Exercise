@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 #from numpy import arange, exp, sqrt, cos, e, pi, meshgrid
 from mpl_toolkits.mplot3d import Axes3D
 
+import pandas as pd
+import seaborn as sns
+
 # evolution strategy (mu + lambda) of the ackley objective function
 from numpy import asarray
 from numpy import exp
