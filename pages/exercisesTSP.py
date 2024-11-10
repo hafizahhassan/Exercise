@@ -21,7 +21,7 @@ with st.form("city_input_form"):
     for i in range(10):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
         
-        city_name = col1.text_input(f"City {i+1}", value=f"City {i+1}")
+        city_name = col1.text_input(f"City {i+1}") #value=f"City {i+1}"
         cities_names.append(city_name)
         
         city_x = col2.number_input(f"X Coordinate for City {i+1}", min_value=1, max_value=10, step=1)
