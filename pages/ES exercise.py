@@ -22,6 +22,13 @@ st.title("Exercise ES")
 st.write("Choose button you want to see the Output :")
 
 col1, col2 = st.columns(2)
-submit_button = col1.button("MU, LAMDA")
-clear_button = col2.button("MU + LAMDA")
+button1 = col1.button("MU, LAMDA")
+button2 = col2.button("MU + LAMDA")
 
+st.write("O U T P U T")
+
+if button1:
+  st.write("1")
+
+if button2:
+  st.write("2")
