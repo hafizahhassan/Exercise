@@ -43,7 +43,7 @@ results = objective(x, y)
 # create a surface plot with the jet color scheme
 fig = plt.figure()
 #axis = figure.gca(projection='3d')
-axis = figure.add_subplot(projection='3d')
+axis = fig.add_subplot(projection='3d')
 axis.plot_surface(x, y, results, cmap='jet')
 
 # show the plot
