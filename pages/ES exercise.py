@@ -100,5 +100,5 @@ if button1:
 	st.write("DONE!")
 	st.write("f(%s) = %f" % (best, score))
   
-  if button2:
-    st.write("2")
+if button2:
+	st.write("2")
