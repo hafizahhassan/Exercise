@@ -1,3 +1,5 @@
+import streamlit as st
+
 # ackley multimodal function
 from numpy import arange
 from numpy import exp
@@ -12,8 +14,6 @@ from numpy.random import randn
 from numpy.random import rand
 from numpy.random import seed
 from numpy import asarray
-
-import streamlit as st
  
 # objective function
 def objective(x, y):
