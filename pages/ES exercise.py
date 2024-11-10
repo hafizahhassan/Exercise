@@ -23,7 +23,7 @@ from numpy.random import seed
 st.title("ES Exercise")
 
 # Create input form for cities
-with st.form("city_input_form"):
+with st.form("es_form"):
     st.write("Enter up to 10 cities with their coordinates (x,y) in range 1-10 :")
     for i in range(10):
         col1, col2, col3 = st.columns(3)    #Buat 3 column
