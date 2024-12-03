@@ -177,7 +177,7 @@ styled_df = schedule_df.style.applymap(color_background, subset=['Program'])
 
 # Display the table
 st.write("Final Optimal Schedule:")
-st.dataframe(styled_df, use_container_width=True, height=668)
+st.dataframe(styled_df, use_container_width=True, hide_index=True, height=668)
 
 st.write("Total Ratings:", fitness_function(final_schedule))
 
