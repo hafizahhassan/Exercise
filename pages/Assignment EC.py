@@ -159,8 +159,22 @@ genetic_schedule = genetic_algorithm(initial_best_schedule, generations=GEN, pop
 
 final_schedule = initial_best_schedule + genetic_schedule[:rem_t_slots]
 
-st.write("\nFinal Optimal Schedule:")
-for time_slot, program in enumerate(final_schedule):
-    st.write(f"Time Slot {all_time_slots[time_slot]:02d}:00 - Program {program}")
+#st.write("\nFinal Optimal Schedule:")
+
+#for time_slot, program in enumerate(final_schedule):
+    #st.write(f"Time Slot {all_time_slots[time_slot]:02d}:00 - Program {program}")
+
+# Create a DataFrame for the schedule
+schedule_data = {
+    "Time Slot": [f"{all_time_slots[time_slot]:02d}:00" for time_slot in range(len(final_schedule))],
+    "Program": final_schedule
+}
+schedule_df = pd.DataFrame(schedule_data)
+
+# Display the table
+st.write("Final Optimal Schedule:")
+st.table(schedule_df)
 
 st.write("Total Ratings:", fitness_function(final_schedule))
+
+
