@@ -2,6 +2,7 @@ import streamlit as st
 import csv
 import requests # Import the requests module
 import pandas as pd
+import numpy as np
 
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
@@ -171,9 +172,17 @@ schedule_data = {
 }
 schedule_df = pd.DataFrame(schedule_data)
 
+# Function to color the background based on program number
+def color_background(val):
+    color = f'background-color: #{hash(val) % 0xFFFFFF:06x}'
+    return color
+
+# Apply styling to the DataFrame
+styled_df = schedule_df.style.applymap(color_background, subset=['Program'])
+
 # Display the table
 st.write("Final Optimal Schedule:")
-st.table(schedule_df)
+st.dataframe(styled_df, use_container_width=True)
 
 st.write("Total Ratings:", fitness_function(final_schedule))
 
