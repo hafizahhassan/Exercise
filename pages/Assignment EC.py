@@ -1,24 +1,34 @@
 import streamlit as st
 import csv
+import requests # Import the requests module
 
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
     program_ratings = {}
 
-    with open(file_path, mode='r', newline='') as file:
-        reader = csv.reader(file)
-        # Skip the header
-        header = next(reader)
+    try:
+      response = requests.get(file_path)
+      response.raise_for_status()
 
-        for row in reader:
-            program = row[0]
-            ratings = [float(x) for x in row[1:]]  # Convert the ratings to floats
-            program_ratings[program] = ratings
+      # Decode the content as text and split into lines
+      lines = response.text.splitlines()
+      reader = csv.reader(lines)
+      
+      # Skip the header
+      header = next(reader)
 
-    return program_ratings
+      for row in reader:
+          program = row[0]
+          ratings = [float(x) for x in row[1:]]  # Convert the ratings to floats
+          program_ratings[program] = ratings
+      return program_ratings
+
+    except requests.exceptions.RequestException as e:
+      print(f"Error fetching or processing CSV data: {e}")
+      return None  # or raise the exception if you prefer
 
 # Path to the CSV file
-file_path = "https://raw.githubusercontent.com/hafizahhassan/Exercise/refs/heads/main/pages/program_ratings.csv"
+file_path = 'https://raw.githubusercontent.com/hafizahhassan/Exercise/refs/heads/main/pages/program_ratings.csv'
 
 # Get the data in the required format
 program_ratings_dict = read_csv_to_dict(file_path)
@@ -153,4 +163,3 @@ for time_slot, program in enumerate(final_schedule):
     print(f"Time Slot {all_time_slots[time_slot]:02d}:00 - Program {program}")
 
 print("Total Ratings:", fitness_function(final_schedule))
-
