@@ -47,7 +47,7 @@ for program, ratings in program_ratings_dict.items():
     })
     
 datadf = pd.DataFrame(dd)
-st.dataframe(datadf, use_container_width=True)
+st.dataframe(datadf, width=100)
 
 ##################################### INTERFACE FOR USER ################################################################
 st.title("TV Rating Programs")
