@@ -38,7 +38,7 @@ program_ratings_dict = read_csv_to_dict(file_path)
 
 st.title("TV Rating Programs")
 
-st.write("D A T A S E T")
+st.subheader("D A T A S E T")
 
 # Print the result (you can also return or process it further)
 for program, ratings in program_ratings_dict.items():
@@ -84,7 +84,7 @@ with st.form("TV_Form"):
     
       Submit_Button = st.form_submit_button("Submit")
 
-st.write("O U T P U T")
+st.subheader("O U T P U T")
 
 # Code untuk bila tekan button
 if Submit_Button:
