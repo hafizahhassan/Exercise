@@ -54,6 +54,9 @@ for program, ratings in program_ratings_dict.items():
 data_df = pd.DataFrame(data)
 st.dataframe(data_df, hide_index=True, width=800)
 
+# Add a divider
+st.divider()
+
 ##################################### INTERFACE FOR USER ################################################################
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
 
