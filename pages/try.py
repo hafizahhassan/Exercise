@@ -20,7 +20,7 @@ st.markdown("""
 
 .shimmer-divider {
   height: 3px;
-  background: linear-gradient(to right, #B8860B 0%, #FFD700 50%, #B8860B 100%);
+  background: linear-gradient(to right, #red 0%, #FFD700 50%, #red 100%);
   background-size: 1000px 100%;
   animation: shimmer 20s infinite linear;
   margin: 20px 0;
