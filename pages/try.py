@@ -35,6 +35,10 @@ file_path = 'https://raw.githubusercontent.com/hafizahhassan/Exercise/refs/heads
 # Get the data in the required format
 program_ratings_dict = read_csv_to_dict(file_path)
 
+st.title("TV Rating Programs")
+
+st.write("The rating program dataset")
+
 # Print the result (you can also return or process it further)
 for program, ratings in program_ratings_dict.items():
     st.write(f"'{program}': {ratings},")
@@ -50,7 +54,7 @@ datadf = pd.DataFrame(dd)
 st.dataframe(datadf, hide_index=True, width=800)
 
 ##################################### INTERFACE FOR USER ################################################################
-st.title("TV Rating Programs")
+st.write("User can change the parameters")
 
 with st.form("TV_Form"):
   # Create sliders for CO_R and MUT_R
