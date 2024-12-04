@@ -63,7 +63,7 @@ with st.form("TV_Form"):
           "Crossover Rate (CO_R)",
           min_value=0.0,
           max_value=0.95,
-          value=0.8,
+          #value=0.8,
           step=0.01,
           help="Crossover rate for the genetic algorithm. Range: 0 to 0.95"
       )
@@ -72,7 +72,7 @@ with st.form("TV_Form"):
           "Mutation Rate (MUT_R)",
           min_value=0.01,
           max_value=0.05,
-          value=0.02,
+          #value=0.02,
           step=0.001,
           help="Mutation rate for the genetic algorithm. Range: 0.01 to 0.05"
       )
