@@ -3,6 +3,7 @@ import csv
 import requests # Import the requests module
 import pandas as pd
 import numpy as np
+import random
 
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
@@ -82,8 +83,6 @@ st.write("O U T P U T")
 
 # Code untuk bila tekan button
 if Submit_Button:
-
-    import random
     
     ##################################### DEFINING PARAMETERS AND DATASET ################################################################
     # Sample rating programs dataset for each time slot.
