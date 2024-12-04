@@ -39,11 +39,11 @@ program_ratings_dict = read_csv_to_dict(file_path)
 for program, ratings in program_ratings_dict.items():
     st.write(f"'{program}': {ratings},")
 
-datadf = {
+program_ratings_dict = {
     "Program" : [f"{program}"],
     "Ratings" : [f"{ratings}"]
 }
-datadf = pd.DataFrame(file_path)
+datadf = pd.DataFrame(program_ratings_dict)
 st.dataframe(datadf, use_container_width=True)
 
 ##################################### INTERFACE FOR USER ################################################################
