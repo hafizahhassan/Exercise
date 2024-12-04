@@ -91,7 +91,7 @@ st.dataframe(data_df, hide_index=True, width=800)
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
-st.subheader("C A N - C H A N G E")
+st.subheader("U S E R  C A N  C H A N G E")
 
 with st.form("TV_Form"):
       # Create sliders for CO_R and MUT_R
