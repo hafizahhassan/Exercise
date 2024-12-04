@@ -80,6 +80,10 @@ st.divider()
 # Your content after the divider
 st.write("This is some content below the divider.")
 
+
+border-top: 5px solid red;
+            width: 50%;
+
 ##################################### INTERFACE FOR USER ################################################################
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
 
