@@ -40,7 +40,7 @@ for program, ratings in program_ratings_dict.items():
     st.write(f"'{program}': {ratings},")
 
 datadf = {
-    "Program" : [f"{program}"]
+    "Program" : [f"{program}"],
     "Ratings" : [f"{ratings}"]
 }
 datadf = pd.DataFrame(file_path)
