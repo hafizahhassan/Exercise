@@ -40,9 +40,9 @@ for program, ratings in program_ratings_dict.items():
     st.write(f"'{program}': {ratings},")
 
 for program, ratings in program_ratings_dict.items():
-    dd.append ({
+    dd.append({
         "Program" : program, 
-        "Ratings" : str(ratings)
+        "Ratings" : ratings
     })
     
     datadf = pd.DataFrame(dd)
