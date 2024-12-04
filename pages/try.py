@@ -1,9 +1,4 @@
 import streamlit as st
-import csv
-import requests # Import the requests module
-import pandas as pd
-import numpy as np
-import random
 
 st.title("T R Y")
 
