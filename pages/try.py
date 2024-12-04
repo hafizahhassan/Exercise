@@ -59,7 +59,7 @@ st.write("USER CAN 'CHANGE' THE PARAMETERS")
 
 with st.form("TV_Form"):
       # Create sliders for CO_R and MUT_R
-      co_r = st.slider(
+      CO_R = st.slider(
           "Crossover Rate (CO_R)",
           min_value=0.0,
           max_value=0.95,
@@ -68,7 +68,7 @@ with st.form("TV_Form"):
           help="Crossover rate for the genetic algorithm. Range: 0 to 0.95"
       )
       
-      mut_r = st.slider(
+      MUT_R = st.slider(
           "Mutation Rate (MUT_R)",
           min_value=0.01,
           max_value=0.05,
