@@ -39,8 +39,12 @@ program_ratings_dict = read_csv_to_dict(file_path)
 for program, ratings in program_ratings_dict.items():
     st.write(f"'{program}': {ratings},")
 
-program_ratings_dict = pd.DataFrame(file_path)
-st.dataframe(program_ratings_dict, use_container_width=True)
+datadf = {
+    "Program" : [f"{program}"]
+    "Ratings" : [f"{ratings}"]
+}
+datadf = pd.DataFrame(file_path)
+st.dataframe(datadf, use_container_width=True)
 
 ##################################### INTERFACE FOR USER ################################################################
 st.title("TV Rating Programs")
