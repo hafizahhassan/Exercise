@@ -63,9 +63,10 @@ st.subheader("This is a subheader with a colored divider", divider="green")
 st.markdown("""
     <style>
     hr {
-        #border-color: darkblue;
-        border-top: 5px solid red;
-        width: 50%;
+        border-color: darkblue;
+        height: 4px;
+        #border-top: 5px solid red;
+        #width: 50%;
     }
     </style>
 """, unsafe_allow_html=True)
