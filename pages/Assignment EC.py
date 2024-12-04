@@ -97,7 +97,7 @@ with st.form("TV_Form"):
       # Create sliders for CO_R and MUT_R
       CO_R = st.slider(
           "Crossover Rate",
-          min_value=0,
+          min_value=0.0,
           max_value=0.95,
           value=0.8,
           step=0.01,
