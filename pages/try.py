@@ -44,6 +44,16 @@ st.write("D A T A S E T")
 for program, ratings in program_ratings_dict.items():
     st.write(f"'{program}': {ratings},")
 
+data = []
+for program, ratings in program_ratings_dict.items():
+    data.append({
+        "Program" : program, 
+        "Ratings" : ratings
+    })
+    
+data_df = pd.DataFrame(data)
+st.dataframe(data_df, hide_index=True, width=800)
+
 ##################################### INTERFACE FOR USER ################################################################
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
 
