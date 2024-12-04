@@ -5,6 +5,35 @@ import pandas as pd
 import numpy as np
 import random
 
+##################################### CSS FOR DIVIDER ################################################################
+# CSS for shimmering divider effect
+st.markdown("""
+<style>
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer-divider {
+  height: 3px;
+  background: linear-gradient(to right, #4d4d4d 0%, #red 50%, #4d4d4d 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 20s infinite linear;
+  margin: 20px 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Add a divider
+#st.divider()
+#st.header("This is a header with a colored divider", divider="red")
+#st.subheader("This is a subheader with a colored divider", divider="green")
+
+##################################### READ FILE .CSV ################################################################
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
     program_ratings = {}
@@ -38,6 +67,9 @@ program_ratings_dict = read_csv_to_dict(file_path)
 
 st.title("TV Rating Programs")
 
+# Add a shimmering divider
+st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
+
 st.subheader("D A T A S E T")
 
 # Print the result (you can also return or process it further)
@@ -53,44 +85,6 @@ for program, ratings in program_ratings_dict.items():
     
 data_df = pd.DataFrame(data)
 st.dataframe(data_df, hide_index=True, width=800)
-
-# Add a divider
-#st.divider()
-st.header("This is a header with a colored divider", divider="red")
-st.subheader("This is a subheader with a colored divider", divider="green")
-
-import streamlit as st
-
-# CSS for shimmering divider effect
-st.markdown("""
-<style>
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-.shimmer-divider {
-  height: 3px;
-  background: linear-gradient(to right, #4d4d4d 0%, #ffffff 50%, #4d4d4d 100%);
-  background-size: 1000px 100%;
-  animation: shimmer 20s infinite linear;
-  margin: 20px 0;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Your content before the divider
-st.write("This is some content above the shimmering divider.")
-
-# Add a shimmering divider
-st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
-
-# Your content after the divider
-st.write("This is some content below the shimmering divider.")
 
 ##################################### INTERFACE FOR USER ################################################################
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
