@@ -59,30 +59,38 @@ st.dataframe(data_df, hide_index=True, width=800)
 st.header("This is a header with a colored divider", divider="red")
 st.subheader("This is a subheader with a colored divider", divider="green")
 
-# Add custom CSS to change the divider color
+import streamlit as st
+
+# CSS for shimmering divider effect
 st.markdown("""
-    <style>
-    hr {
-        border-color: darkblue;
-        height: 4px;
-        #border-top: 5px solid red;
-        #width: 50%;
-    }
-    </style>
+<style>
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer-divider {
+  height: 3px;
+  background: linear-gradient(to right, #4d4d4d 0%, #ffffff 50%, #4d4d4d 100%);
+  background-size: 1000px 100%;
+  animation: shimmer 20s infinite linear;
+  margin: 20px 0;
+}
+</style>
 """, unsafe_allow_html=True)
 
 # Your content before the divider
-st.write("This is some content above the divider.")
+st.write("This is some content above the shimmering divider.")
 
-# Add a divider
-st.divider()
+# Add a shimmering divider
+st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 # Your content after the divider
-st.write("This is some content below the divider.")
-
-
-border-top: 5px solid red;
-            width: 50%;
+st.write("This is some content below the shimmering divider.")
 
 ##################################### INTERFACE FOR USER ################################################################
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
