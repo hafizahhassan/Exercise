@@ -37,7 +37,7 @@ program_ratings_dict = read_csv_to_dict(file_path)
 
 st.title("TV Rating Programs")
 
-st.write("The rating program dataset")
+st.write("D A T A S E T")
 
 # Print the result (you can also return or process it further)
 for program, ratings in program_ratings_dict.items():
@@ -54,7 +54,7 @@ datadf = pd.DataFrame(dd)
 st.dataframe(datadf, hide_index=True, width=800)
 
 ##################################### INTERFACE FOR USER ################################################################
-st.write("User can change the parameters")
+st.write("USER CAN 'CHANGE' THE PARAMETERS")
 
 with st.form("TV_Form"):
   # Create sliders for CO_R and MUT_R
