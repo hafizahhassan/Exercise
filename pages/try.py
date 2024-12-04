@@ -33,19 +33,11 @@ def read_csv_to_dict(file_path):
 file_path = 'https://raw.githubusercontent.com/hafizahhassan/Exercise/refs/heads/main/pages/program_ratings.csv'
 
 # Get the data in the required format
-#program_ratings_dict = read_csv_to_dict(file_path)
+program_ratings_dict = read_csv_to_dict(file_path)
 
 # Print the result (you can also return or process it further)
-#for program, ratings in program_ratings_dict.items():
-    #st.write(f"'{program}': {ratings},")
-
-# Get the data as a DataFrame
-program_ratings_dict = read_csv_to_dataframe(file_path)
-
-if program_ratings_dict is not None:
-    # Display the DataFrame as a table
-    st.write("Program Ratings:")
-    st.dataframe(program_ratings_dict, use_container_width=True)
+for program, ratings in program_ratings_dict.items():
+    st.dataframe(f"'{program}': {ratings},")
 
 ##################################### INTERFACE FOR USER ################################################################
 st.title("TV Rating Programs")
