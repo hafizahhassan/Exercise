@@ -73,8 +73,8 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 st.subheader("D A T A S E T")
 
 # Print the result (you can also return or process it further)
-for program, ratings in program_ratings_dict.items():
-    st.write(f"'{program}': {ratings},")
+#for program, ratings in program_ratings_dict.items():
+    #st.write(f"'{program}': {ratings},")
 
 data = []
 for program, ratings in program_ratings_dict.items():
@@ -87,7 +87,10 @@ data_df = pd.DataFrame(data)
 st.dataframe(data_df, hide_index=True, width=800)
 
 ##################################### INTERFACE FOR USER ################################################################
-st.write("USER CAN 'CHANGE' THE PARAMETERS")
+#st.write("USER CAN 'CHANGE' THE PARAMETERS")
+
+# Add a shimmering divider
+st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 with st.form("TV_Form"):
       # Create sliders for CO_R and MUT_R
