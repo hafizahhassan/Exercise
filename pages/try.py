@@ -41,7 +41,7 @@ for program, ratings in program_ratings_dict.items():
 
 for program, ratings in program_ratings_dict.items():
     dd = {
-        "Program" : [f'{all_time_slots[program]}'], 
+        "Program" : [f'{program}'], 
         "Ratings" : ratings
     }
     
