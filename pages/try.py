@@ -46,7 +46,7 @@ for program, ratings in program_ratings_dict.items():
     
 data = []
 for program, ratings in program_ratings_dict.items():
-    dd.append({
+    data.append({
         "Program" : program, 
         "Ratings" : ratings
     })
