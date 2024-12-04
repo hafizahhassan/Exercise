@@ -46,8 +46,8 @@ for program, ratings in program_ratings_dict.items():
         "Ratings" : ratings
     })
     
-    datadf = pd.DataFrame(dd)
-    st.dataframe(datadf, use_container_width=True)
+datadf = pd.DataFrame(dd)
+st.dataframe(datadf, use_container_width=True)
 
 # Convert the dictionary directly to a DataFrame
 df = pd.DataFrame.from_dict(program_ratings_dict, orient='index').reset_index()
