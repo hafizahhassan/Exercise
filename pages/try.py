@@ -57,26 +57,26 @@ st.dataframe(data_df, hide_index=True, width=800)
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
 
 with st.form("TV_Form"):
-  # Create sliders for CO_R and MUT_R
-  co_r = st.slider(
-      "Crossover Rate (CO_R)",
-      min_value=0.0,
-      max_value=0.95,
-      value=0.8,
-      step=0.01,
-      help="Crossover rate for the genetic algorithm. Range: 0 to 0.95"
-  )
-  
-  mut_r = st.slider(
-      "Mutation Rate (MUT_R)",
-      min_value=0.01,
-      max_value=0.05,
-      value=0.02,
-      step=0.001,
-      help="Mutation rate for the genetic algorithm. Range: 0.01 to 0.05"
-  )
-
-  Submit_Button = st.form_submit_button("Submit")
+      # Create sliders for CO_R and MUT_R
+      co_r = st.slider(
+          "Crossover Rate (CO_R)",
+          min_value=0.0,
+          max_value=0.95,
+          value=0.8,
+          step=0.01,
+          help="Crossover rate for the genetic algorithm. Range: 0 to 0.95"
+      )
+      
+      mut_r = st.slider(
+          "Mutation Rate (MUT_R)",
+          min_value=0.01,
+          max_value=0.05,
+          value=0.02,
+          step=0.001,
+          help="Mutation rate for the genetic algorithm. Range: 0.01 to 0.05"
+      )
+    
+      Submit_Button = st.form_submit_button("Submit")
 
 st.write("O U T P U T")
 
