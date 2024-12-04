@@ -41,7 +41,8 @@ for program, ratings in program_ratings_dict.items():
 
 for program, ratings in program_ratings_dict.items():
     dd = {
-        "Program" : [f'{program}'], "Ratings" : ratings
+        "Program" : [f'{all_time_slots[program]}'], 
+        "Ratings" : ratings
     }
     
     datadf = pd.DataFrame(dd)
