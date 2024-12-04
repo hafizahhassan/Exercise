@@ -5,39 +5,29 @@ import pandas as pd
 import numpy as np
 
 # Function to read the CSV file and convert it to the desired format
-def read_csv_to_dict(file_path):
-    program_ratings = {}
-
+def read_csv_to_dataframe(file_path):
     try:
-      response = requests.get(file_path)
-      response.raise_for_status()
+        response = requests.get(file_path)
+        response.raise_for_status()
 
-      # Decode the content as text and split into lines
-      lines = response.text.splitlines()
-      reader = csv.reader(lines)
-      
-      # Skip the header
-      header = next(reader)
-
-      for row in reader:
-          program = row[0]
-          ratings = [float(x) for x in row[1:]]  # Convert the ratings to floats
-          program_ratings[program] = ratings
-      return program_ratings
+        # Decode the content as text and create a DataFrame
+        df = pd.read_csv(pd.compat.StringIO(response.text))
+        return df
 
     except requests.exceptions.RequestException as e:
-      st.write(f"Error fetching or processing CSV data: {e}")
-      return None  # or raise the exception if you prefer
+        st.write(f"Error fetching or processing CSV data: {e}")
+        return None
 
 # Path to the CSV file
 file_path = 'https://raw.githubusercontent.com/hafizahhassan/Exercise/refs/heads/main/pages/program_ratings.csv'
 
-# Get the data in the required format
-program_ratings_dict = read_csv_to_dataframe(file_path)
+# Get the data as a DataFrame
+df = read_csv_to_dataframe(file_path)
 
-# Print the result (you can also return or process it further)
-for program, ratings in program_ratings_dict.items():
-    st.dataframe(f"'{program}': {ratings},")
+if df is not None:
+    # Display the DataFrame as a table
+    st.write("Program Ratings:")
+    st.dataframe(df, use_container_width=True)
 
 ##################################### INTERFACE FOR USER ################################################################
 st.title("TV Rating Programs")
