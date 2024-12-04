@@ -49,14 +49,6 @@ for program, ratings in program_ratings_dict.items():
 datadf = pd.DataFrame(dd)
 st.dataframe(datadf, use_container_width=True)
 
-# Convert the dictionary directly to a DataFrame
-df = pd.DataFrame.from_dict(program_ratings_dict, orient='index').reset_index()
-df.columns = ['Program', 'Ratings']
-
-# Display the DataFrame as a single table
-st.write("Program Ratings:")
-st.dataframe(df, use_container_width=True)
-
 ##################################### INTERFACE FOR USER ################################################################
 st.title("TV Rating Programs")
 
