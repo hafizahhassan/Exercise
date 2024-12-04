@@ -55,9 +55,27 @@ data_df = pd.DataFrame(data)
 st.dataframe(data_df, hide_index=True, width=800)
 
 # Add a divider
-st.divider()
+#st.divider()
 st.header("This is a header with a colored divider", divider="red")
 st.subheader("This is a subheader with a colored divider", divider="green")
+
+# Add custom CSS to change the divider color
+st.markdown("""
+    <style>
+    hr {
+        border-color: darkblue;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Your content before the divider
+st.write("This is some content above the divider.")
+
+# Add a divider
+st.divider()
+
+# Your content after the divider
+st.write("This is some content below the divider.")
 
 ##################################### INTERFACE FOR USER ################################################################
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
