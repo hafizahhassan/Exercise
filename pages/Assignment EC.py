@@ -113,7 +113,7 @@ with st.form("TV_Form"):
           help="Mutation rate for the genetic algorithm. Range: 0.01 to 0.05"
       )
     
-      Submit_Button = st.form_submit_button("Submit")
+      Calculate_Button = st.form_submit_button("Calculate")
 
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
@@ -121,7 +121,7 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 st.subheader("O U T P U T")
 
 # Code untuk bila tekan button
-if Submit_Button:
+if Calculate_Button:
     
     ##################################### DEFINING PARAMETERS AND DATASET ################################################################
     # Sample rating programs dataset for each time slot.
