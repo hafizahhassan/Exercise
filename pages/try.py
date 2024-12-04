@@ -1,257 +1,210 @@
-import matplotlib.pyplot as plt
-from itertools import permutations, combinations
-from random import shuffle
-import random
-import numpy as np
-import statistics
-import pandas as pd
-import seaborn as sns
 import streamlit as st
+import csv
+import requests # Import the requests module
+import pandas as pd
+import numpy as np
 
-st.title("City Coordinates Input TSP")
+# Function to read the CSV file and convert it to the desired format
+def read_csv_to_dict(file_path):
+    program_ratings = {}
 
-# Collect data
-cities_names = []
-x = []
-y = []
+    try:
+      response = requests.get(file_path)
+      response.raise_for_status()
 
-st.write("Enter up to 10 cities with their coordinates (x,y) in range 1-10 :")
-for i in range(10):
-  col1, col2, col3 = st.columns(3)    #Buat 3 column
+      # Decode the content as text and split into lines
+      lines = response.text.splitlines()
+      reader = csv.reader(lines)
+      
+      # Skip the header
+      header = next(reader)
 
-  city_name = col1.text_input(f"City {i+1}") #value=f"City {i+1}"
-  cities_names.append(city_name)
+      for row in reader:
+          program = row[0]
+          ratings = [float(x) for x in row[1:]]  # Convert the ratings to floats
+          program_ratings[program] = ratings
+      return program_ratings
 
-  city_x = col2.number_input(f"X Coordinate for City {i+1}", min_value=1, max_value=10, step=1)
-  x.append(city_x)
+    except requests.exceptions.RequestException as e:
+      st.write(f"Error fetching or processing CSV data: {e}")
+      return None  # or raise the exception if you prefer
 
-  city_y = col3.number_input(f"Y Coordinate for City {i+1}", min_value=1, max_value=10, step=1)
-  y.append(city_y)
+# Path to the CSV file
+file_path = 'https://raw.githubusercontent.com/hafizahhassan/Exercise/refs/heads/main/pages/program_ratings.csv'
 
-# Code untuk bila tekan button
-if st.button("Button"):
+# Get the data in the required format
+program_ratings_dict = read_csv_to_dict(file_path)
 
-  city_coords = dict(zip(cities_names, zip(x, y)))
+# Print the result (you can also return or process it further)
+for program, ratings in program_ratings_dict.items():
+    st.write(f"'{program}': {ratings},")
+
+##################################### INTERFACE FOR USER ################################################################
+st.title("TV Rating Programs")
+
+with st.form("TV_Form"):
+  # Create sliders for CO_R and MUT_R
+  co_r = st.slider(
+      "Crossover Rate (CO_R)",
+      min_value=0.0,
+      max_value=0.95,
+      value=0.8,
+      step=0.01,
+      help="Crossover rate for the genetic algorithm. Range: 0 to 0.95"
+  )
   
-  # City Icons
-  city_icons = dict(zip(cities_names, ["♕", "♖", "♗", "♘", "♙", "♔", "♚", "♛", "♜", "♝"]))
-  
-  # Define default settings for the genetic algorithm
-  n_population = 250
-  crossover_per = 0.8
-  mutation_per = 0.2
-  n_generations = 200
-  
-  # Pastel palette
-  colors = sns.color_palette("pastel", len(cities_names))
-   
-  # Plotting city
-  fig, ax = plt.subplots()
-  ax.grid(False) 
-  
-  for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
-    color = colors[i % len(colors)]
-    icon = city_icons[city]
-    ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
-    ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
-    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30), textcoords='offset points')
-  
-    # Connect cities with opaque lines
-    for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
-      if i != j:
-          ax.plot([city_x, other_x], [city_y, other_y], color='blue', linestyle='-', linewidth=1, alpha=0.1)
-  
-  fig.set_size_inches(16, 12)
-  st.pyplot(fig)
-  
-  #population
-  def initial_population(cities_list, n_population = 250):
-    population_perms = []
-    possible_perms = list(permutations(cities_list))
-    random_ids = random.sample(range(0,len(possible_perms)), n_population)
-  
-    for i in random_ids:
-      population_perms.append(list(possible_perms[i]))
-  
-    return population_perms
-  
-  #distance between two cities
-  def dist_two_cities(city_1, city_2):
-    city_1_coords = city_coords[city_1]
-    city_2_coords = city_coords[city_2]
-    return np.sqrt(np.sum((np.array(city_1_coords) - np.array(city_2_coords))**2))
-  
-  def total_dist_individual(individual):
-    total_dist = 0
-    for i in range(0, len(individual)):
-      if(i == len(individual) - 1):
-        total_dist += dist_two_cities(individual[i], individual[0])
-      else:
-        total_dist += dist_two_cities(individual[i], individual[i+1])
-    return total_dist
-  
-  #fitness probablity function
-  def fitness_prob(population):
-    total_dist_all_individuals = []
-    for i in range(0, len(population)):
-      total_dist_all_individuals.append(total_dist_individual(population[i]))
-  
-    max_population_cost = max(total_dist_all_individuals)
-    population_fitness = max_population_cost - total_dist_all_individuals
-    population_fitness_sum = sum(population_fitness)
-    population_fitness_probs = population_fitness / population_fitness_sum
-    return population_fitness_probs
-  
-  #roulette wheel    
-  def roulette_wheel(population, fitness_probs):
-    population_fitness_probs_cumsum = fitness_probs.cumsum()
-    bool_prob_array = population_fitness_probs_cumsum < np.random.uniform(0,1,1)
-    selected_individual_index = len(bool_prob_array[bool_prob_array == True]) - 1
-    return population[selected_individual_index]
-  
-  #crossover
-  def crossover(parent_1, parent_2):
-    n_cities_cut = len(cities_names) - 1
-    cut = round(random.uniform(1, n_cities_cut))
-    offspring_1 = []
-    offspring_2 = []
-    
-    offspring_1 = parent_1[0:cut]
-    offspring_1 += [city for city in parent_2 if city not in offspring_1]
-    
-    offspring_2 = parent_2[0:cut]
-    offspring_2 += [city for city in parent_1 if city not in offspring_2]
-    
-    return offspring_1, offspring_2
-  
-  #mutation
-  def mutation(offspring):
-    n_cities_cut = len(cities_names) - 1
-    index_1 = round(random.uniform(0,n_cities_cut))
-    index_2 = round(random.uniform(0,n_cities_cut))
-    
-    temp = offspring[index_1]
-    offspring[index_1] = offspring[index_2]
-    offspring[index_2] = temp
-    return(offspring)
-  
-  def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per):
-  
-    population = initial_population(cities_names, n_population)
-    fitness_probs = fitness_prob(population)
-  
-    parents_list = []
-    for i in range(0, int(crossover_per * n_population)):
-      parents_list.append(roulette_wheel(population, fitness_probs))
-  
-    offspring_list = []
-    for i in range(0,len(parents_list), 2):
-      offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i+1])
-  
-      mutate_threashold = random.random()
-      if(mutate_threashold > (1-mutation_per)):
-        offspring_1 = mutation(offspring_1)
-  
-      mutate_threashold = random.random()
-      if(mutate_threashold > (1-mutation_per)):
-        offspring_2 = mutation(offspring_2)
-  
-      offspring_list.append(offspring_1)
-      offspring_list.append(offspring_2)
-  
-    mixed_offspring = parents_list + offspring_list
-    fitness_probs = fitness_prob(mixed_offspring)
-    sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
-    best_fitness_indices = sorted_fitness_indices[0:n_population]
-    
-    best_mixed_offspring = []
-    for i in best_fitness_indices:
-      best_mixed_offspring.append(mixed_offspring[i]) 
-  
-    for i in range(0, n_generations):
-  
-      fitness_probs = fitness_prob(best_mixed_offspring)
-      parents_list = []
-      for i in range(0, int(crossover_per * n_population)):
-        parents_list.append(roulette_wheel(best_mixed_offspring, fitness_probs))
-  
-      offspring_list = []
-      for i in range(0,len(parents_list), 2):
-        offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i+1])
-  
-        mutate_threashold = random.random()
-        if(mutate_threashold > (1-mutation_per)):
-          offspring_1 = mutation(offspring_1)
-  
-        mutate_threashold = random.random()
-        if(mutate_threashold > (1-mutation_per)):
-            offspring_2 = mutation(offspring_2)
-  
-        offspring_list.append(offspring_1)
-        offspring_list.append(offspring_2)
-  
-      mixed_offspring = parents_list + offspring_list
-      fitness_probs = fitness_prob(mixed_offspring)
-      sorted_fitness_indices = np.argsort(fitness_probs)[::-1]
-      best_fitness_indices = sorted_fitness_indices[0:int(0.8*n_population)]
-  
-      best_mixed_offspring = []
-      for i in best_fitness_indices:
-        best_mixed_offspring.append(mixed_offspring[i])
-  
-      old_population_indices = [random.randint(0, (n_population - 1)) for j in range(int(0.2*n_population))]
-      for i in old_population_indices:
-        best_mixed_offspring.append(population[i])
-  
-      random.shuffle(best_mixed_offspring)
-  
-    return best_mixed_offspring
-  
-  best_mixed_offspring = run_ga(cities_names, n_population, n_generations, crossover_per, mutation_per)
-  
-  total_dist_all_individuals = []
-  for i in range(0, n_population):
-    total_dist_all_individuals.append(total_dist_individual(best_mixed_offspring[i]))
-  
-  index_minimum = np.argmin(total_dist_all_individuals)
-  
-  minimum_distance = min(total_dist_all_individuals)
-  st.write("Minimum Distance : ", minimum_distance)
-  
-  #shortest path
-  # shortest_path = offspring_list[index_minimum]
-  shortest_path = best_mixed_offspring[index_minimum]
-  st.write("Shortest Path : ", shortest_path)
-  
-  x_shortest = []
-  y_shortest = []
-  for city in shortest_path:
-    x_value, y_value = city_coords[city]
-    x_shortest.append(x_value)
-    y_shortest.append(y_value)
-  
-  x_shortest.append(x_shortest[0])
-  y_shortest.append(y_shortest[0])
-  
-  fig, ax = plt.subplots()
-  ax.plot(x_shortest, y_shortest, '--go', label='Best Route', linewidth=2.5)
-  plt.legend()
-  
-  for i in range(len(x)):
-    for j in range(i + 1, len(x)):
-      ax.plot([x[i], x[j]], [y[i], y[j]], 'k-', alpha=0.09, linewidth=1)
-  
-  plt.title(label="TSP Best Route Using GA",
-            fontsize=25,
-            color="k")
-  
-  str_params = '\n'+str(n_generations)+' Generations\n'+str(n_population)+' Population Size\n'+str(crossover_per)+' Crossover\n'+str(mutation_per)+' Mutation'
-  plt.suptitle("Total Distance Travelled: "+
-               str(round(minimum_distance, 3)) +
-               str_params, fontsize=18, y = 1.047)
-  
-  for i, txt in enumerate(shortest_path):
-    ax.annotate(str(i+1)+ "- " + txt, (x_shortest[i], y_shortest[i]), fontsize= 20)
-  
-  fig.set_size_inches(16, 12)
-  st.pyplot(fig)
+  mut_r = st.slider(
+      "Mutation Rate (MUT_R)",
+      min_value=0.01,
+      max_value=0.05,
+      value=0.02,
+      step=0.001,
+      help="Mutation rate for the genetic algorithm. Range: 0.01 to 0.05"
+  )
+
+  Submit_Button = st.form_submit_button("Submit")
+
+st.write("O U T P U T")
+
+import random
+
+##################################### DEFINING PARAMETERS AND DATASET ################################################################
+# Sample rating programs dataset for each time slot.
+ratings = program_ratings_dict
+
+GEN = 100
+POP = 50
+CO_R = 0.8
+MUT_R = 0.2
+EL_S = 2
+
+all_programs = list(ratings.keys()) # all programs
+all_time_slots = list(range(6, 24)) # time slots
+
+######################################### DEFINING FUNCTIONS ########################################################################
+# Defining fitness function
+def fitness_function(schedule):
+    total_rating = 0
+    for time_slot, program in enumerate(schedule):
+        total_rating += ratings[program][time_slot]
+    return total_rating
+
+# Initializing the population
+def initialize_pop(programs, time_slots):
+    if not programs:
+        return [[]]
+
+    all_schedules = []
+    for i in range(len(programs)):
+        for schedule in initialize_pop(programs[:i] + programs[i + 1:], time_slots):
+            all_schedules.append([programs[i]] + schedule)
+
+    return all_schedules
+
+# Selection
+def finding_best_schedule(all_schedules):
+    best_schedule = []
+    max_ratings = 0
+
+    for schedule in all_schedules:
+        total_ratings = fitness_function(schedule)
+        if total_ratings > max_ratings:
+            max_ratings = total_ratings
+            best_schedule = schedule
+
+    return best_schedule
+
+# Calling the pop func.
+all_possible_schedules = initialize_pop(all_programs, all_time_slots)
+
+# Callin the schedule func.
+best_schedule = finding_best_schedule(all_possible_schedules)
+
+
+############################################# GENETIC ALGORITHM #############################################################################
+
+# Crossover
+def crossover(schedule1, schedule2):
+    crossover_point = random.randint(1, len(schedule1) - 2)
+    child1 = schedule1[:crossover_point] + schedule2[crossover_point:]
+    child2 = schedule2[:crossover_point] + schedule1[crossover_point:]
+    return child1, child2
+
+# Mutating
+def mutate(schedule):
+    mutation_point = random.randint(0, len(schedule) - 1)
+    new_program = random.choice(all_programs)
+    schedule[mutation_point] = new_program
+    return schedule
+
+# Calling the fitness func.
+def evaluate_fitness(schedule):
+    return fitness_function(schedule)
+
+# Genetic algorithms with parameters
+def genetic_algorithm(initial_schedule, generations=GEN, population_size=POP, crossover_rate=CO_R, mutation_rate=MUT_R, elitism_size=EL_S):
+
+    population = [initial_schedule]
+
+    for _ in range(population_size - 1):
+        random_schedule = initial_schedule.copy()
+        random.shuffle(random_schedule)
+        population.append(random_schedule)
+
+    for generation in range(generations):
+        new_population = []
+
+        # Elitsm
+        population.sort(key=lambda schedule: fitness_function(schedule), reverse=True)
+        new_population.extend(population[:elitism_size])
+
+        while len(new_population) < population_size:
+            parent1, parent2 = random.choices(population, k=2)
+            if random.random() < crossover_rate:
+                child1, child2 = crossover(parent1, parent2)
+            else:
+                child1, child2 = parent1.copy(), parent2.copy()
+
+            if random.random() < mutation_rate:
+                child1 = mutate(child1)
+            if random.random() < mutation_rate:
+                child2 = mutate(child2)
+
+            new_population.extend([child1, child2])
+
+        population = new_population
+
+    return population[0]
+
+##################################################### RESULTS ###################################################################################
+
+# Brute Force
+initial_best_schedule = finding_best_schedule(all_possible_schedules)
+
+rem_t_slots = len(all_time_slots) - len(initial_best_schedule)
+genetic_schedule = genetic_algorithm(initial_best_schedule, generations=GEN, population_size=POP, elitism_size=EL_S)
+
+final_schedule = initial_best_schedule + genetic_schedule[:rem_t_slots]
+
+# Create a DataFrame for the schedule
+schedule_data = {
+    "Time Slot": [f"{all_time_slots[time_slot]:02d}:00" for time_slot in range(len(final_schedule))],
+    "Program": final_schedule
+}
+schedule_df = pd.DataFrame(schedule_data)
+
+# Function to color the background based on program number
+def color_background(val):
+    color = f'background-color: #{hash(val) % 0xFFFFFF:06x}'
+    return color
+
+# Apply styling to the DataFrame
+styled_df = schedule_df.style.applymap(color_background, subset=['Program'])
+
+# Display the table
+st.write("Final Optimal Schedule:")
+st.dataframe(styled_df, hide_index=True, width=500, height=668)
+
+st.write("Total Ratings:", fitness_function(final_schedule))
+
+
