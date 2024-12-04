@@ -65,7 +65,7 @@ file_path = 'https://raw.githubusercontent.com/hafizahhassan/Exercise/refs/heads
 # Get the data in the required format
 program_ratings_dict = read_csv_to_dict(file_path)
 
-st.title("TV Rating Programs")
+st.title("TV RATING PROGRAMS")
 
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
@@ -91,7 +91,7 @@ st.dataframe(data_df, hide_index=True, width=800)
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
-st.subheader("U S E R  C A N  C H A N G E")
+st.subheader("U S E R    C A N    C H A N G E")
 
 with st.form("TV_Form"):
       # Create sliders for CO_R and MUT_R
