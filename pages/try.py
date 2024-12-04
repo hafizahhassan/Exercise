@@ -56,6 +56,8 @@ st.dataframe(data_df, hide_index=True, width=800)
 
 # Add a divider
 st.divider()
+st.header("This is a header with a colored divider", divider="red")
+st.subheader("This is a subheader with a colored divider", divider="green")
 
 ##################################### INTERFACE FOR USER ################################################################
 st.write("USER CAN 'CHANGE' THE PARAMETERS")
