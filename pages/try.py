@@ -96,7 +96,7 @@ st.subheader("U S E R &nbsp;&nbsp; C A N &nbsp;&nbsp; C H A N G E")
 with st.form("TV_Form"):
       # Create sliders for CO_R and MUT_R
       CO_R = st.slider(
-          "Crossover Rate (CO_R)",
+          "Crossover Rate",
           min_value=0.0,
           max_value=0.95,
           value=0.8,
@@ -105,7 +105,7 @@ with st.form("TV_Form"):
       )
       
       MUT_R = st.slider(
-          "Mutation Rate (MUT_R)",
+          "Mutation Rate",
           min_value=0.01,
           max_value=0.05,
           value=0.02,
