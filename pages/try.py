@@ -87,10 +87,11 @@ data_df = pd.DataFrame(data)
 st.dataframe(data_df, hide_index=True, width=800)
 
 ##################################### INTERFACE FOR USER ################################################################
-#st.write("USER CAN 'CHANGE' THE PARAMETERS")
 
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
+
+st.subheader("C A N - C H A N G E")
 
 with st.form("TV_Form"):
       # Create sliders for CO_R and MUT_R
@@ -113,6 +114,9 @@ with st.form("TV_Form"):
       )
     
       Submit_Button = st.form_submit_button("Submit")
+
+# Add a shimmering divider
+st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("O U T P U T")
 
