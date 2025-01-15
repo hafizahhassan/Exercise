@@ -44,7 +44,7 @@ if schedule_file and courses_file and timeslots_file and classrooms_file:
 
     # Parameters for Firefly Algorithm
     num_fireflies = 10
-    num_generations = 100
+    num_generations = 50
     alpha = 0.2  # Randomness weight
     beta0 = 1.0  # Attraction constant
     gamma = 1.0  # Absorption coefficient
