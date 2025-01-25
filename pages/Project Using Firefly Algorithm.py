@@ -86,19 +86,19 @@ if Submit_Button:
         classrooms = load_csv(classrooms_file)
 
         # Inspect the DataFrame
-        st.write("Courses DataFrame:")
-        st.write(courses.head())
-        st.write("Column Names in Courses:")
-        st.write(courses.columns)
+        #st.write("Courses DataFrame:")
+        #st.write(courses.head())
+        #st.write("Column Names in Courses:")
+        #st.write(courses.columns)
 
-        st.write("Column Names in Instructors:")
-        st.write(instructors.columns)
+        #st.write("Column Names in Instructors:")
+        #st.write(instructors.columns)
 
-        st.write("Column Names in Timeslots:")
-        st.write(timeslots.columns)
+        #st.write("Column Names in Timeslots:")
+        #st.write(timeslots.columns)
 
-        st.write("Column Names in Classroom:")
-        st.write(classrooms.columns)
+        #st.write("Column Names in Classroom:")
+        #st.write(classrooms.columns)
     
         # Parameters for Firefly Algorithm
         num_fireflies = 10
@@ -165,9 +165,11 @@ if Submit_Button:
             st.write(f"Iteration {iteration + 1}: Best Fitness = {best_fitness}")
         
         # Output the best schedule
+        best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
+      
         st.write("Best Schedule :")
         for course in best_firefly:
-            st.dataframe("Course {course[0]} - Instructor {course[1]} - Room {course[2]} - Timeslot {course[3]}")
+            st.dataframe(best_schedule_df)
   else:
     st.write("Please upload all the required CSV files.")
 
