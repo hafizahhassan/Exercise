@@ -122,7 +122,7 @@ if Submit_Button:
     
         # Parameters for Firefly Algorithm
         num_fireflies = 20
-        num_iterations = 100
+        num_iterations = 10
         gamma = 0.3  # Light absorption coefficient
         beta0 = 1.0  # Attraction coefficient base value
         alpha = 0.1  # Randomization coefficient
