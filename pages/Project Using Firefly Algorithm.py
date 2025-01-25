@@ -82,8 +82,8 @@ with st.form("Firefly_Algorithm"):
 
   col1, col2, col3 = st.columns(3)
   with col2:
-    Submit_Button = st.form_submit_button('<div class="buttonSubmit"></div>', "Submit")
-    Clear_Button = st.form_submit_button('<div class="buttonClear"></div>', "Clear")
+    Submit_Button = st.form_submit_button("Submit")
+    Clear_Button = st.form_submit_button("Clear")
 
 ##################################### OUTPUT ###################################################################
 
