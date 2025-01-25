@@ -115,9 +115,7 @@ if Submit_Button:
         # Initialize fireflies
         fireflies = []
         for _ in range(num_fireflies):
-            firefly = [(random.choice(courses), random.choice(instructors),
-                        random.choice(classrooms), random.choice(timeslots))
-                       for _ in range(len(courses))]
+            firefly = [(random.choice(courses), random.choice(instructors), random.choice(classrooms), random.choice(timeslots)) for _ in range(len(courses))]
             fireflies.append(firefly)
         
         # Fitness function
