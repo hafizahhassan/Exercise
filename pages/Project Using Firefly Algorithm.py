@@ -91,11 +91,24 @@ if Submit_Button:
         gamma = 1.0  # Light absorption coefficient
         beta0 = 2.0  # Attraction coefficient base value
         alpha = 0.2  # Randomization coefficient
+
+        courses_list = courses['Course'].tolist()  # Replace 'Course' with the actual column name
+        instructors_list = instructors['Instructor'].tolist()  # Replace 'Instructor' with the column name
+        classrooms_list = classrooms['Classroom'].tolist()  # Replace 'Classroom' with the column name
+        timeslots_list = timeslots['Timeslot'].tolist()  # Replace 'Timeslot' with the column name
       
         # Initialize fireflies
         fireflies = []
         for _ in range(num_fireflies):
-            firefly = [(random.choice(courses), random.choice(instructors), random.choice(classrooms), random.choice(timeslots)) for _ in range(len(courses))]
+            firefly = [
+                        (
+                            random.choice(courses_list), 
+                            random.choice(instructors_list), 
+                            random.choice(classrooms_list), 
+                            random.choice(timeslots_list)
+                        ) 
+                        for _ in range(len(courses_list))
+                      ]
             fireflies.append(firefly)
         
         # Fitness function
