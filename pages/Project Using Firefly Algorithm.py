@@ -90,9 +90,7 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 st.subheader("O U T P U T")
 
 if Submit_Button:
-  if not all([schedule_file, courses_file, timeslots_file, classrooms_file]):
-    st.error("Please upload all required CSV files.")
-  else:
+  if schedule_file and courses_file and timeslots_file and classrooms_file:
     schedule = load_data(schedule_file)
     courses = load_data(courses_file)
     timeslots = load_data(timeslots_file)
@@ -155,6 +153,8 @@ if Submit_Button:
     st.write("Best Schedule :")
     for course in best_firefly:
         st.dataframe("Course {course[0]} - Instructor {course[1]} - Room {course[2]} - Timeslot {course[3]}")
+  else:
+    st.write("Please upload all the required CSV files.")
 
 if Clear_Button:
   clear_output()
