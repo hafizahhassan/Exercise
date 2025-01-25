@@ -98,7 +98,7 @@ if Submit_Button:
         beta0 = 2.0  # Attraction coefficient base value
         alpha = 0.2  # Randomization coefficient
 
-        courses_list = courses['Courses'].tolist()  # Replace 'Course' with the actual column name
+        courses_list = courses['course_name'].tolist()  # Replace 'Course' with the actual column name
         instructors_list = instructors['Instructors'].tolist()  # Replace 'Instructor' with the column name
         classrooms_list = classrooms['Classrooms'].tolist()  # Replace 'Classroom' with the column name
         timeslots_list = timeslots['Timeslots'].tolist()  # Replace 'Timeslot' with the column name
