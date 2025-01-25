@@ -90,6 +90,15 @@ if Submit_Button:
         st.write(courses.head())
         st.write("Column Names in Courses:")
         st.write(courses.columns)
+
+        st.write("Column Names in Instructors:")
+        st.write(instructors.columns)
+
+        st.write("Column Names in Timeslots:")
+        st.write(timeslots.columns)
+
+        st.write("Column Names in Classroom:")
+        st.write(classrooms.columns)
     
         # Parameters for Firefly Algorithm
         num_fireflies = 10
