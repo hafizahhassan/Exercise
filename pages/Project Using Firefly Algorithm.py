@@ -60,6 +60,7 @@ def clear_output():
   # Clear all the file uploader widgets
   st.session_state.schedule_file = None
   st.session_state.courses_file = None
+  st.session_state.instructors_file = None    
   st.session_state.timeslots_file = None
   st.session_state.classrooms_file = None
 
@@ -68,6 +69,8 @@ if 'schedule_file' not in st.session_state:
   st.session_state.schedule_file = None
 if 'courses_file' not in st.session_state:
   st.session_state.courses_file = None
+if 'instructors_file' not in st.session_state:
+  st.session_state.instructors_file = None
 if 'timeslots_file' not in st.session_state:
   st.session_state.timeslots_file = None
 if 'classrooms_file' not in st.session_state:
@@ -78,6 +81,7 @@ with st.form("Firefly_Algorithm"):
   # File upload for schedule, courses, timeslots, and classrooms
   schedule_file = st.file_uploader("Upload Schedule CSV", type=["csv"])
   courses_file = st.file_uploader("Upload Courses CSV", type=["csv"])
+  instructors_file = st.file_uploader("Upload Instructors CSV", type=["csv"])  
   timeslots_file = st.file_uploader("Upload Timeslots CSV", type=["csv"])
   classrooms_file = st.file_uploader("Upload Classrooms CSV", type=["csv"])
 
@@ -97,6 +101,7 @@ if Submit_Button:
   if schedule_file and courses_file and timeslots_file and classrooms_file:
         schedule = load_csv(schedule_file)
         courses = load_csv(courses_file)
+        instructors = load_csv(instructors_file)
         timeslots = load_csv(timeslots_file)
         classrooms = load_csv(classrooms_file)
     
