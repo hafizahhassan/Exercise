@@ -6,8 +6,10 @@ import numpy as np
 
 ##################################### CSS FOR DIVIDER ################################################################
 # CSS for shimmering divider effect
+# CSS for Button
 st.markdown("""
 <style>
+
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;
@@ -24,6 +26,18 @@ st.markdown("""
   animation: shimmer 20s infinite linear;
   margin: 20px 0;
 }
+
+.stFormSubmitButton > button {
+    background-color: #02ab21;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+}
+.stFormSubmitButton > button:hover {
+    background-color: #027a18;
+    color: white;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -65,9 +79,11 @@ with st.form("Firefly_Algorithm"):
   timeslots_file = st.file_uploader("Upload Timeslots Data", type=["csv"])
   
   classrooms_file = st.file_uploader("Upload Classrooms Data", type=["csv"])
-  
-  Submit_Button = st.form_submit_button("Submit")
-  Clear_Button = st.form_submit_button("Clear")
+
+  col1, col2, col3 = st.columns(3)
+  with col2:
+    Submit_Button = st.form_submit_button("Submit")
+    Clear_Button = st.form_submit_button("Clear")
 
 ##################################### OUTPUT ###################################################################
 
