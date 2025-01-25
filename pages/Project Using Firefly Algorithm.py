@@ -72,13 +72,11 @@ if 'classrooms_file' not in st.session_state:
 with st.form("Firefly_Algorithm"):
   # Upload the Dataset
   # File upload for schedule, courses, timeslots, and classrooms
-  schedule_file = st.file_uploader("Upload Schedule Data", type=["csv"])
-  
-  courses_file = st.file_uploader("Upload Courses Data", type=["csv"])
-  
-  timeslots_file = st.file_uploader("Upload Timeslots Data", type=["csv"])
-  
-  classrooms_file = st.file_uploader("Upload Classrooms Data", type=["csv"])
+  students_file = st.file_uploader("Upload Students CSV", type=["csv"], key="students")
+  instructors_file = st.file_uploader("Upload Instructors CSV", type=["csv"], key="instructors")
+  courses_file = st.file_uploader("Upload Courses CSV", type=["csv"], key="courses")
+  classrooms_file = st.file_uploader("Upload Classrooms CSV", type=["csv"], key="classrooms")
+  timeslots_file = st.file_uploader("Upload Timeslots CSV", type=["csv"], key="timeslots")
 
   col1, col2, col3 = st.columns(3)
   with col2:
