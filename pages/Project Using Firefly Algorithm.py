@@ -38,15 +38,19 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("D A T A")
 
-# Upload the Dataset
-# File upload for schedule, courses, timeslots, and classrooms
-schedule_file = st.file_uploader("Upload Schedule Data", type=["csv"])
-
-courses_file = st.file_uploader("Upload Courses Data", type=["csv"])
-
-timeslots_file = st.file_uploader("Upload Timeslots Data", type=["csv"])
-
-classrooms_file = st.file_uploader("Upload Classrooms Data", type=["csv"])
+with st.form(""):
+  # Upload the Dataset
+  # File upload for schedule, courses, timeslots, and classrooms
+  schedule_file = st.file_uploader("Upload Schedule Data", type=["csv"])
+  
+  courses_file = st.file_uploader("Upload Courses Data", type=["csv"])
+  
+  timeslots_file = st.file_uploader("Upload Timeslots Data", type=["csv"])
+  
+  classrooms_file = st.file_uploader("Upload Classrooms Data", type=["csv"])
+  
+  Submit_Button = st.form_submit_button("Submit")
+  Clear_Button = st.form_submit_button("Clear")
 
 ##################################### OUTPUT ###################################################################
 
