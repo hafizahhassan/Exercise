@@ -147,7 +147,7 @@ if Submit_Button:
                 for j in range(num_fireflies):
                     if fitness_values[j] < fitness_values[i]:  # Brighter fireflies attract dimmer ones
                         distance = np.linalg.norm(
-                            [courses.index(fireflies[i][k][0]) - courses.index(fireflies[j][k][0]) for k in range(len(courses))]
+                            [courses_list.index(fireflies[i][k][0]) - courses_list.index(fireflies[j][k][0]) for k in range(len(courses_list))]
                         )
                         beta = beta0 * np.exp(-gamma * distance**2)
                         fireflies[i] = move_firefly(fireflies[i], fireflies[j], beta)
