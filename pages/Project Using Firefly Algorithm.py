@@ -188,12 +188,12 @@ if Submit_Button:
         st.subheader("B E S T &nbsp;&nbsp; S C H E D U L I N G")
 
         # Assuming best_schedule_df is your DataFrame
-        def highlight_first_row(x):
-            return ['background-color: yellow' if i == 0 else '' for i in range(len(x))]
+        def color_index(x):
+            return ['color: blue' if x.name == x.index.name else '' for _ in x]
 
          # Output the best schedule
         best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
-        styled_df = best_schedule_df.style.apply(highlight_first_row, axis=0)
+        styled_df = best_schedule_df.style.apply(color_index, axis=0)
       
         st.dataframe(styled_df, width=800, height=1400)
       
