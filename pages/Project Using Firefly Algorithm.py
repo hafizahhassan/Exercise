@@ -27,16 +27,15 @@ st.markdown("""
   margin: 20px 0;
 }
 
-div[data-testid="stFormSubmitButton"] > button:first-child {
+.stFormSubmitButton > button {
     background-color: #02ab21;
     color: white;
+    font-size: 20px;
+    width: 100%;
 }
-div[data-testid="stFormSubmitButton"] > button:nth-child(2) {
-    background-color: #ff0000;
+.stFormSubmitButton > button:hover {
+    background-color: #027a18;
     color: white;
-}
-div[data-testid="stFormSubmitButton"] > button:hover {
-    opacity: 0.8;
 }
 
 </style>
@@ -81,11 +80,10 @@ with st.form("Firefly_Algorithm"):
   
   classrooms_file = st.file_uploader("Upload Classrooms Data", type=["csv"])
 
-  col1, col2 = st.columns(2)
-  with col1:
-    Submit_Button = st.form_submit_button("Submit")
+  col1, col2, col3 = st.columns(3)
   with col2:
-    Clear_Button = st.form_submit_button("Clear")
+    Submit_Button = st.form_submit_button('<div class="buttonSubmit"></div>', "Submit")
+    Clear_Button = st.form_submit_button('<div class="buttonClear"></div>', "Clear")
 
 ##################################### OUTPUT ###################################################################
 
