@@ -59,7 +59,7 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("O U T P U T")
 
-if Submit_file:
+if Submit_Button:
   st.write("Form submitted!")
 
 if Clear_Button:
