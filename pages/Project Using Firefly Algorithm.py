@@ -50,7 +50,7 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 ##################################### INSERT DATASET ###################################################################
 
-st.subheader("D A T A")
+st.subheader("U P L O A D &nbsp;&nbsp; D A T A")
 
 def clear_output():
   # Clear all the file uploader widgets
