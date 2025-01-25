@@ -153,9 +153,9 @@ if Submit_Button:
                         fireflies[i] = move_firefly(fireflies[i], fireflies[j], beta)
                         # Random perturbation
                         if random.random() < alpha:
-                            fireflies[i] = [(random.choice(courses), random.choice(instructors),
-                                             random.choice(classrooms), random.choice(timeslots))
-                                            for _ in range(len(courses))]
+                            fireflies[i] = [(random.choice(courses_list), random.choice(instructors_list),
+                                             random.choice(classrooms_list), random.choice(timeslots_list))
+                                            for _ in range(len(courses_list))]
         
             # Update global best
             best_index = np.argmin(fitness_values)
