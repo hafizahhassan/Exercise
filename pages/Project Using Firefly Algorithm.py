@@ -193,9 +193,9 @@ if Submit_Button:
 
          # Output the best schedule
         best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
-        styled_df = best_schedule_df.style.apply(highlight_first_row, axis=0)
+        #styled_df = best_schedule_df.style.apply(highlight_first_row, axis=0)
       
-        st.dataframe(best_schedule_df, styled_df, width=800, height=1400)
+        st.dataframe(best_schedule_df, highlight_first_row, width=800, height=1400)
       
   else:
     st.write("Please upload all the required CSV files.")
