@@ -4,6 +4,10 @@ import pandas as pd
 import random
 import numpy as np
 
+# Function to load uploaded CSV file
+def load_csv(file):
+    return pd.read_csv(file)
+
 ##################################### CSS FOR DIVIDER ################################################################
 # CSS for shimmering divider effect
 # CSS for Button
