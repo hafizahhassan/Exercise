@@ -187,15 +187,10 @@ if Submit_Button:
         st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
         st.subheader("B E S T &nbsp;&nbsp; S C H E D U L I N G")
 
-        # Assuming best_schedule_df is your DataFrame
-        def color_table(df):
-            return pd.DataFrame('background-color: lightblue', index=df.index, columns=df.columns)
-
          # Output the best schedule
         best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
-        styled_df = best_schedule_df.style.apply(color_table, axis=0)
       
-        st.dataframe(styled_df, width=800, height=1400)
+        st.dataframe(best_schedule_df, width=800, height=1400)
       
   else:
     st.write("Please upload all the required CSV files.")
