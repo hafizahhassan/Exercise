@@ -26,9 +26,24 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
-##################################### READ FILE .CSV ################################################################
+
+#####################################################################################################################
 
 st.title("OPTIMIZED EXAM TIMETABLE GENERATION USING FIREFLY ALGORITHM")
+
+# Add a shimmering divider
+st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
+
+##################################### INSERT DATASET ###################################################################
+
+st.subheader("I N S E R T    D A T A S E T")
+
+# Add a shimmering divider
+st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
+
+##################################### OUTPUT ###################################################################
+
+st.subheader("O U T P U T")
 
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
