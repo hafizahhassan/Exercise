@@ -38,7 +38,7 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("D A T A")
 
-with st.form(""):
+with st.form("Firefly_Algorithm"):
   # Upload the Dataset
   # File upload for schedule, courses, timeslots, and classrooms
   schedule_file = st.file_uploader("Upload Schedule Data", type=["csv"])
