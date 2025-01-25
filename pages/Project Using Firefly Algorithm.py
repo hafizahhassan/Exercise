@@ -123,8 +123,8 @@ if Submit_Button:
         # Parameters for Firefly Algorithm
         num_fireflies = 10
         num_iterations = 100
-        gamma = 1.0  # Light absorption coefficient
-        beta0 = 2.0  # Attraction coefficient base value
+        gamma = 0.3  # Light absorption coefficient
+        beta0 = 1.0  # Attraction coefficient base value
         alpha = 0.1  # Randomization coefficient
 
         courses_list = courses['course_name'].tolist()  # Replace 'Course' with the actual column name
