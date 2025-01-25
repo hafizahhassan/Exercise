@@ -84,7 +84,7 @@ with st.form("Firefly_Algorithm"):
   col1, col2, col3 = st.columns(3)
   with col2:
     Submit_Button = st.form_submit_button("Submit", key="submit_button")
-    Clear_Button = st.form_submit_button("Clear")
+    Clear_Button = st.form_submit_button("Clear", key="clear_button")
 
 ##################################### OUTPUT ###################################################################
 
