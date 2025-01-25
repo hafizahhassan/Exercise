@@ -91,68 +91,68 @@ st.subheader("O U T P U T")
 
 if Submit_Button:
   if schedule_file and courses_file and timeslots_file and classrooms_file:
-    schedule = load_data(schedule_file)
-    courses = load_data(courses_file)
-    timeslots = load_data(timeslots_file)
-    classrooms = load_data(classrooms_file)
-
-    # Parameters for Firefly Algorithm
-    num_fireflies = 10
-    num_iterations = 100
-    gamma = 1.0  # Light absorption coefficient
-    beta0 = 2.0  # Attraction coefficient base value
-    alpha = 0.2  # Randomization coefficient
-  
-    # Initialize fireflies
-    fireflies = []
-    for _ in range(num_fireflies):
-        firefly = [(random.choice(courses), random.choice(instructors),
-                    random.choice(classrooms), random.choice(timeslots))
-                   for _ in range(len(courses))]
-        fireflies.append(firefly)
+        schedule = load_data(schedule_file)
+        courses = load_data(courses_file)
+        timeslots = load_data(timeslots_file)
+        classrooms = load_data(classrooms_file)
     
-    # Fitness function
-    def fitness(firefly):
-        instructor_conflicts = len(firefly) - len(set((c[1], c[3]) for c in firefly))
-        room_conflicts = len(firefly) - len(set((c[2], c[3]) for c in firefly))
-        return instructor_conflicts + room_conflicts
+        # Parameters for Firefly Algorithm
+        num_fireflies = 10
+        num_iterations = 100
+        gamma = 1.0  # Light absorption coefficient
+        beta0 = 2.0  # Attraction coefficient base value
+        alpha = 0.2  # Randomization coefficient
+      
+        # Initialize fireflies
+        fireflies = []
+        for _ in range(num_fireflies):
+            firefly = [(random.choice(courses), random.choice(instructors),
+                        random.choice(classrooms), random.choice(timeslots))
+                       for _ in range(len(courses))]
+            fireflies.append(firefly)
+        
+        # Fitness function
+        def fitness(firefly):
+            instructor_conflicts = len(firefly) - len(set((c[1], c[3]) for c in firefly))
+            room_conflicts = len(firefly) - len(set((c[2], c[3]) for c in firefly))
+            return instructor_conflicts + room_conflicts
+        
+        # Move firefly i towards firefly j
+        def move_firefly(firefly_i, firefly_j, beta):
+            new_firefly = firefly_i[:]
+            for k in range(len(firefly_i)):
+                if random.random() < beta:
+                    new_firefly[k] = firefly_j[k]
+            return new_firefly
     
-    # Move firefly i towards firefly j
-    def move_firefly(firefly_i, firefly_j, beta):
-        new_firefly = firefly_i[:]
-        for k in range(len(firefly_i)):
-            if random.random() < beta:
-                new_firefly[k] = firefly_j[k]
-        return new_firefly
-
-    # Main Firefly Algorithm
-    for iteration in range(num_iterations):
-        fitness_values = [fitness(f) for f in fireflies]
-        for i in range(num_fireflies):
-            for j in range(num_fireflies):
-                if fitness_values[j] < fitness_values[i]:  # Brighter fireflies attract dimmer ones
-                    distance = np.linalg.norm(
-                        [courses.index(fireflies[i][k][0]) - courses.index(fireflies[j][k][0]) for k in range(len(courses))]
-                    )
-                    beta = beta0 * np.exp(-gamma * distance**2)
-                    fireflies[i] = move_firefly(fireflies[i], fireflies[j], beta)
-                    # Random perturbation
-                    if random.random() < alpha:
-                        fireflies[i] = [(random.choice(courses), random.choice(instructors),
-                                         random.choice(classrooms), random.choice(timeslots))
-                                        for _ in range(len(courses))]
-    
-        # Update global best
-        best_index = np.argmin(fitness_values)
-        best_firefly = fireflies[best_index]
-        best_fitness = fitness_values[best_index]
-    
-        st.write(f"Iteration {iteration + 1}: Best Fitness = {best_fitness}")
-    
-    # Output the best schedule
-    st.write("Best Schedule :")
-    for course in best_firefly:
-        st.dataframe("Course {course[0]} - Instructor {course[1]} - Room {course[2]} - Timeslot {course[3]}")
+        # Main Firefly Algorithm
+        for iteration in range(num_iterations):
+            fitness_values = [fitness(f) for f in fireflies]
+            for i in range(num_fireflies):
+                for j in range(num_fireflies):
+                    if fitness_values[j] < fitness_values[i]:  # Brighter fireflies attract dimmer ones
+                        distance = np.linalg.norm(
+                            [courses.index(fireflies[i][k][0]) - courses.index(fireflies[j][k][0]) for k in range(len(courses))]
+                        )
+                        beta = beta0 * np.exp(-gamma * distance**2)
+                        fireflies[i] = move_firefly(fireflies[i], fireflies[j], beta)
+                        # Random perturbation
+                        if random.random() < alpha:
+                            fireflies[i] = [(random.choice(courses), random.choice(instructors),
+                                             random.choice(classrooms), random.choice(timeslots))
+                                            for _ in range(len(courses))]
+        
+            # Update global best
+            best_index = np.argmin(fitness_values)
+            best_firefly = fireflies[best_index]
+            best_fitness = fitness_values[best_index]
+        
+            st.write(f"Iteration {iteration + 1}: Best Fitness = {best_fitness}")
+        
+        # Output the best schedule
+        st.write("Best Schedule :")
+        for course in best_firefly:
+            st.dataframe("Course {course[0]} - Instructor {course[1]} - Room {course[2]} - Timeslot {course[3]}")
   else:
     st.write("Please upload all the required CSV files.")
 
