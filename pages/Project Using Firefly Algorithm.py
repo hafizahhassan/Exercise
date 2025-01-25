@@ -121,7 +121,7 @@ if Submit_Button:
         #st.write(classrooms.columns)
     
         # Parameters for Firefly Algorithm
-        num_fireflies = 5
+        num_fireflies = 10
         num_iterations = 100
         gamma = 1.0  # Light absorption coefficient
         beta0 = 0.5  # Attraction coefficient base value
@@ -188,7 +188,7 @@ if Submit_Button:
         best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
       
         st.write("Best Schedule :")
-        st.dataframe(best_schedule_df, width=800, height=800)
+        st.dataframe(best_schedule_df, width=800, height=1200)
       
   else:
     st.write("Please upload all the required CSV files.")
