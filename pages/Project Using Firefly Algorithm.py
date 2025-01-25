@@ -188,7 +188,7 @@ if Submit_Button:
         best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
       
         st.write("Best Schedule :")
-        st.dataframe(best_schedule_df, width=800, height=1200)
+        st.dataframe(best_schedule_df, width=800, height=1300)
       
   else:
     st.write("Please upload all the required CSV files.")
