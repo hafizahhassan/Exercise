@@ -186,8 +186,10 @@ if Submit_Button:
         
         # Output the best schedule
         best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
+
+        st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
+        st.subheader("B E S T &nbsp;&nbsp; S C H E D U L I N G")
       
-        st.write("Best Schedule :")
         st.dataframe(best_schedule_df, width=800, height=1400)
       
   else:
