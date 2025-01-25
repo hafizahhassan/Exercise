@@ -121,7 +121,7 @@ if Submit_Button:
         #st.write(classrooms.columns)
     
         # Parameters for Firefly Algorithm
-        num_fireflies = 10
+        num_fireflies = 5
         num_iterations = 10
         gamma = 0.3  # Light absorption coefficient
         beta0 = 1.0  # Attraction coefficient base value
