@@ -58,3 +58,17 @@ with st.form("Firefly_Algorithm"):
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("O U T P U T")
+
+if Submit_file:
+  st.write("Form submitted!")
+
+if Clear_Button:
+  clear_output()
+  st.rerun()
+
+
+
+
+
+
+
