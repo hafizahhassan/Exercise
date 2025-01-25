@@ -91,10 +91,10 @@ st.subheader("O U T P U T")
 
 if Submit_Button:
   if schedule_file and courses_file and timeslots_file and classrooms_file:
-        schedule = load_data(schedule_file)
-        courses = load_data(courses_file)
-        timeslots = load_data(timeslots_file)
-        classrooms = load_data(classrooms_file)
+        schedule = load_csv(schedule_file)
+        courses = load_csv(courses_file)
+        timeslots = load_csv(timeslots_file)
+        classrooms = load_csv(classrooms_file)
     
         # Parameters for Firefly Algorithm
         num_fireflies = 10
