@@ -38,6 +38,13 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("D A T A")
 
+def clear_output():
+  # Clear all the file uploader widgets
+  st.session_state.schedule_file = None
+  st.session_state.courses_file = None
+  st.session_state.timeslots_file = None
+  st.session_state.classrooms_file = None
+
 with st.form("Firefly_Algorithm"):
   # Upload the Dataset
   # File upload for schedule, courses, timeslots, and classrooms
