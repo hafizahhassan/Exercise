@@ -45,6 +45,16 @@ def clear_output():
   st.session_state.timeslots_file = None
   st.session_state.classrooms_file = None
 
+# Initialize session state for file uploaders if not already done
+if 'schedule_file' not in st.session_state:
+  st.session_state.schedule_file = None
+if 'courses_file' not in st.session_state:
+  st.session_state.courses_file = None
+if 'timeslots_file' not in st.session_state:
+  st.session_state.timeslots_file = None
+if 'classrooms_file' not in st.session_state:
+  st.session_state.classrooms_file = None
+
 with st.form("Firefly_Algorithm"):
   # Upload the Dataset
   # File upload for schedule, courses, timeslots, and classrooms
