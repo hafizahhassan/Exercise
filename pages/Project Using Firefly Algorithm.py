@@ -43,7 +43,7 @@ st.markdown("""
 
 #####################################################################################################################
 
-st.title("OPTIMIZED EXAM TIMETABLE GENERATION USING FIREFLY ALGORITHM")
+st.title("OPTIMIZATION EXAM SCHEDULING USING FIREFLY ALGORITHM")
 
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
