@@ -84,6 +84,12 @@ if Submit_Button:
         instructors = load_csv(instructors_file)
         timeslots = load_csv(timeslots_file)
         classrooms = load_csv(classrooms_file)
+
+        # Inspect the DataFrame
+        st.write("Courses DataFrame:")
+        st.write(courses.head())
+        st.write("Column Names in Courses:")
+        st.write(courses.columns)
     
         # Parameters for Firefly Algorithm
         num_fireflies = 10
