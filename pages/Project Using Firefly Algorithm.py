@@ -124,7 +124,7 @@ if Submit_Button:
         num_fireflies = 10
         num_iterations = 100
         gamma = 1.0  # Light absorption coefficient
-        beta0 = 0.5  # Attraction coefficient base value
+        beta0 = 2.0  # Attraction coefficient base value
         alpha = 0.1  # Randomization coefficient
 
         courses_list = courses['course_name'].tolist()  # Replace 'Course' with the actual column name
@@ -188,7 +188,7 @@ if Submit_Button:
         best_schedule_df = pd.DataFrame(best_firefly, columns=["Course", "Instructor", "Room", "Timeslot"])
       
         st.write("Best Schedule :")
-        st.dataframe(best_schedule_df, width=800, height=1300)
+        st.dataframe(best_schedule_df, width=800, height=1400)
       
   else:
     st.write("Please upload all the required CSV files.")
