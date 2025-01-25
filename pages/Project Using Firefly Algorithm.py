@@ -98,7 +98,7 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 st.subheader("O U T P U T")
 
 if Submit_Button:
-  if schedule_file and courses_file and timeslots_file and classrooms_file:
+  if schedule_file and courses_file and instructors_file and timeslots_file and classrooms_file:
         schedule = load_csv(schedule_file)
         courses = load_csv(courses_file)
         instructors = load_csv(instructors_file)
