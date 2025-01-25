@@ -27,16 +27,15 @@ st.markdown("""
   margin: 20px 0;
 }
 
-.st-key-submit_button > button {
+.stFormSubmitButton > button {
     background-color: #02ab21;
     color: white;
+    font-size: 20px;
+    width: 100%;
 }
-.st-key-clear_button > button {
-    background-color: #ff0000;
+.stFormSubmitButton > button:hover {
+    background-color: #027a18;
     color: white;
-}
-.st-key-submit_button > button:hover, .st-key-clear_button > button:hover {
-    opacity: 0.8;
 }
 
 </style>
@@ -83,8 +82,8 @@ with st.form("Firefly_Algorithm"):
 
   col1, col2, col3 = st.columns(3)
   with col2:
-    Submit_Button = st.form_submit_button("Submit", key="submit_button")
-    Clear_Button = st.form_submit_button("Clear", key="clear_button")
+    Submit_Button = st.form_submit_button("Submit")
+    Clear_Button = st.form_submit_button("Clear")
 
 ##################################### OUTPUT ###################################################################
 
