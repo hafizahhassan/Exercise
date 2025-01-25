@@ -38,9 +38,6 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("D A T A")
 
-# Add a shimmering divider
-st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
-
 # Upload the Dataset
 # File upload for schedule, courses, timeslots, and classrooms
 st.subheader("Upload Schedule CSV")
@@ -57,7 +54,7 @@ classrooms_file = st.file_uploader("Upload Classrooms Data", type=["csv"])
 
 ##################################### OUTPUT ###################################################################
 
-st.subheader("O U T P U T")
-
 # Add a shimmering divider
 st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
+
+st.subheader("O U T P U T")
