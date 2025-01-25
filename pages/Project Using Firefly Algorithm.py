@@ -27,20 +27,15 @@ st.markdown("""
   margin: 20px 0;
 }
 
-.stFormSubmitButton > button:first-child {
+.stFormSubmitButton > button {
     background-color: #02ab21;
     color: white;
     font-size: 20px;
     width: 100%;
 }
-.stFormSubmitButton > button:nth-child(2) {
-    background-color: #FFD700;
-    color: white;
-    font-size: 20px;
-    width: 100%;
-}
 .stFormSubmitButton > button:hover {
-    opacity: 0.8;
+    background-color: #027a18;
+    color: white;
 }
 
 </style>
