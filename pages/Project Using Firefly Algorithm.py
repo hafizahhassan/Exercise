@@ -34,7 +34,7 @@ st.markdown("""
     width: 100%;
 }
 .stFormSubmitButton > button:nth-child(2) {
-    background-color: #ff0000;
+    background-color: #FFD700;
     color: white;
     font-size: 20px;
     width: 100%;
