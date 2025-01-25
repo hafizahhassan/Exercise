@@ -56,26 +56,6 @@ st.markdown('<div class="shimmer-divider"></div>', unsafe_allow_html=True)
 
 st.subheader("U P L O A D &nbsp;&nbsp; D A T A")
 
-def clear_output():
-  # Clear all the file uploader widgets
-  st.session_state.schedule_file = None
-  st.session_state.courses_file = None
-  st.session_state.instructors_file = None    
-  st.session_state.timeslots_file = None
-  st.session_state.classrooms_file = None
-
-# Initialize session state for file uploaders if not already done
-if 'schedule_file' not in st.session_state:
-  st.session_state.schedule_file = None
-if 'courses_file' not in st.session_state:
-  st.session_state.courses_file = None
-if 'instructors_file' not in st.session_state:
-  st.session_state.instructors_file = None
-if 'timeslots_file' not in st.session_state:
-  st.session_state.timeslots_file = None
-if 'classrooms_file' not in st.session_state:
-  st.session_state.classrooms_file = None
-
 with st.form("Firefly_Algorithm"):
   # Upload the Dataset
   # File upload for schedule, courses, timeslots, and classrooms
